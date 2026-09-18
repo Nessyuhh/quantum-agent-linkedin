@@ -1,0 +1,12 @@
+# Sources de veille. Une URL de flux RSS par ligne, # pour commenter.
+# Tout est gratuit, aucun outil de scraping, aucune cle API.
+
+# Actualite francophone, IA et automatisation en entreprise
+https://news.google.com/rss/search?q=intelligence+artificielle+PME&hl=fr&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=automatisation+processus+entreprise&hl=fr&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=agents+IA+entreprise&hl=fr&gl=FR&ceid=FR:fr
+
+# Sources primaires, pour reagir avant tout le monde
+https://openai.com/blog/rss.xml
+https://blog.n8n.io/rss/
+https://zapier.com/blog/feeds/latest/

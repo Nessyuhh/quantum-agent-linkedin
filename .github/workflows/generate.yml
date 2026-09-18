@@ -1,0 +1,33 @@
+name: Redaction hebdomadaire
+on:
+  schedule:
+    - cron: "0 17 * * 0"     # dimanche 19h00 Paris en ete, 18h00 en hiver
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rediger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Veille de derniere minute
+        working-directory: scripts
+        run: python veille.py
+      - name: Rediger
+        working-directory: scripts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '3' }}
+        run: python generate.py
+      - name: Enregistrer la file
+        run: |
+          git config user.name "agent-linkedin"
+          git config user.email "agent@quantum-agency.fr"
+          git add content/queue.json
+          git diff --staged --quiet || git commit -m "redaction: nouvelle fournee"
+          git push

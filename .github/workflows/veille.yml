@@ -1,0 +1,25 @@
+name: Veille quotidienne
+on:
+  schedule:
+    - cron: "40 5 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  veiller:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Collecter les angles
+        working-directory: scripts
+        run: python veille.py
+      - name: Enregistrer la file
+        run: |
+          git config user.name "agent-linkedin"
+          git config user.email "agent@quantum-agency.fr"
+          git add content/queue.json
+          git diff --staged --quiet || git commit -m "veille: nouveaux angles"
+          git pull --rebase --autostash || true
+          git push || true

@@ -1,0 +1,30 @@
+name: Releve des validations Telegram
+on:
+  schedule:
+    - cron: "10 6,8,10,12,14,16,18,20 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  relever:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Relever
+        working-directory: scripts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python review.py
+      - name: Enregistrer la file
+        run: |
+          git config user.name "agent-linkedin"
+          git config user.email "agent@quantum-agency.fr"
+          git add content/queue.json
+          git diff --staged --quiet || git commit -m "validation: mise a jour de la file"
+          git pull --rebase --autostash || true
+          git push

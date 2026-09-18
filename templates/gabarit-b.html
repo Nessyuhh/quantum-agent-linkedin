@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+body{background:var(--ivoire);color:var(--encre)}
+.rail .filet{background:var(--encre-14)} .rail .mention{color:var(--encre-64)}
+.eyebrow{color:var(--violet)}
+.titre{font-size:84px;line-height:.94}
+.lane{display:flex;flex-direction:column;gap:18px}
+.lane-head{display:flex;align-items:baseline;justify-content:space-between}
+.lane-label{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em}
+.lane-total{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
+  font-size:46px;line-height:1;text-transform:uppercase}
+.flow{display:flex;align-items:center}
+.box{flex:0 0 130px;width:130px;height:88px;padding:12px;display:flex;flex-direction:column;
+  justify-content:space-between;background:#FFF}
+.box .n{font-size:14px} .box .t{font-family:'Space Mono',monospace;font-size:11px}
+.avant .box{border:1px solid rgba(17,19,24,.2)} .avant .box .t{color:var(--encre-64)}
+.avant .box:first-child{border:1px dashed rgba(17,19,24,.35);background:#EFEFEA}
+.avant .link{flex:1 1 auto;min-width:14px;max-width:60px;height:1px;background:rgba(17,19,24,.3)}
+.avant .lane-label,.avant .lane-total{color:var(--encre-64)}
+.apres .box{border:2px solid #7C3AED} .apres .box .t{color:var(--violet)}
+.apres .link{width:22px;height:2px;background:linear-gradient(90deg,#7C3AED,#A855F7)}
+.apres .lane-label,.apres .lane-total{color:var(--violet)}
+.reste{flex-grow:1;height:1px;margin-left:22px;
+  background-image:repeating-linear-gradient(to right,rgba(17,19,24,.3) 0 7px,transparent 7px 14px)}
+.note{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+  color:var(--encre-64);padding-left:16px;line-height:1.6;white-space:pre-line}
+.fig{color:var(--encre-64)} .wordmark .q{color:#0F172A} .wordmark .c{color:#475569}
+</style></head>
+<body><div class="board">
+  <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
+  <div class="col">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="head">
+        <div></div>
+        <svg viewBox="0 0 100 100" width="46" height="46"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0%" stop-color="#7C3AED"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#g)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="display titre" data-fit data-fit-min="52">{{TITLE}}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:46px">
+      <div class="lane avant">
+        <div class="lane-head"><div class="lane-label">AVANT</div><div class="lane-total">{{BEFORE_TOTAL}}</div></div>
+        <div class="flow">{{BEFORE_STEPS}}</div>
+      </div>
+      <div class="lane apres">
+        <div class="lane-head"><div class="lane-label">APRÈS</div><div class="lane-total">{{AFTER_TOTAL}}</div></div>
+        <div class="flow">{{AFTER_STEPS}}<div class="reste"></div><div class="note">{{NOTE}}</div></div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="wordmark"><div class="q">QUANTUM</div><div class="c">CONSULTING</div></div>
+    </div>
+  </div>
+</div><script src="_fit.js"></script>
+</body></html>

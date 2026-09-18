@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+body{background:var(--ivoire);color:var(--encre)}
+.rail .filet{background:var(--encre-14)} .rail .mention{color:var(--encre-64)}
+.eyebrow{color:var(--violet)}
+.chiffre{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;
+  font-size:400px;line-height:.76;letter-spacing:-.01em}
+.unite{font-size:110px;line-height:.9}
+.reveal{font-size:36px;font-weight:400;line-height:1.4;max-width:900px}
+.reveal b{font-weight:600;color:var(--violet)}
+.fig{color:var(--encre-64)} .wordmark .q{color:#0F172A} .wordmark .c{color:#475569}
+</style></head>
+<body><div class="board">
+  <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
+  <div class="col">
+    <div class="head">
+      <div class="eyebrow">{{EYEBROW}}</div>
+      <svg viewBox="0 0 100 100" width="46" height="46"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0%" stop-color="#7C3AED"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#g)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/></svg>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:30px;padding:40px 0">
+      <div style="display:flex;align-items:baseline;gap:24px">
+        <div class="chiffre grad-text" data-fit data-fit-lines="1" data-fit-min="180">{{NUMBER}}</div>
+        <div class="display unite">{{UNIT}}</div>
+      </div>
+      <div class="rule"></div>
+      <div class="reveal" data-fit data-fit-min="24">{{REVEAL}}</div>
+    </div>
+    <div class="foot">
+      <div class="wordmark"><div class="q">QUANTUM</div><div class="c">CONSULTING</div></div>
+    </div>
+  </div>
+</div><script src="_fit.js"></script>
+</body></html>

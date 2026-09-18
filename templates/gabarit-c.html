@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+body{background:var(--panneau);color:var(--clair)}
+.rail .filet{background:rgba(196,181,253,.3)} .rail .mention{color:var(--clair-64)}
+.eyebrow{color:var(--ancre)}
+.phrase{font-size:132px;line-height:.92;letter-spacing:-.005em;color:var(--clair)}
+.soulignement{height:3px;width:240px;background:var(--grad-clair)}
+.fig{color:var(--clair-64)} .wordmark .q{color:var(--clair)} .wordmark .c{color:var(--clair-64)}
+</style></head>
+<body><div class="board">
+  <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
+  <div class="col">
+    <div class="head">
+      <div></div>
+      <svg viewBox="0 0 100 100" width="46" height="46"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0%" stop-color="#DDD6FE"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#22D3EE"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#g)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/></svg>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:34px">
+      <div class="display phrase" data-fit data-fit-min="62">{{PHRASE}}</div>
+      <div class="soulignement"></div>
+    </div>
+    <div class="foot">
+      <div class="wordmark"><div class="q">QUANTUM</div><div class="c">CONSULTING</div></div>
+    </div>
+  </div>
+</div><script src="_fit.js"></script>
+</body></html>

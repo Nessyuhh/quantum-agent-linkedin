@@ -1,0 +1,3 @@
+Secrets a creer dans Settings > Secrets and variables > Actions :
+ANTHROPIC_API_KEY, LINKEDIN_ACCESS_TOKEN, LINKEDIN_PERSON_URN,
+TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
