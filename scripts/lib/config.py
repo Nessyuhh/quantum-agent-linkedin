@@ -2,6 +2,8 @@
 import os
 from pathlib import Path
 
+from . import net  # branche Python sur le trousseau macOS si truststore est la
+
 ROOT = Path(__file__).resolve().parents[2]
 BRAND = ROOT / "brand"
 CONTENT = ROOT / "content"
@@ -26,6 +28,11 @@ TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 POSTS_PER_RUN = int(os.environ.get("POSTS_PER_RUN", "3"))
+
+# Validation humaine systematique. Rien ne part sans un clic de Younes.
+# Mettre AUTO_PUBLISH=1 un jour ouvrirait la publication automatique des
+# piliers surs, mais ce n'est pas le mode choisi.
+AUTO_PUBLISH = os.environ.get("AUTO_PUBLISH", "") == "1"
 DRY_RUN = os.environ.get("DRY_RUN", "") == "1"
 
 def brand(name: str) -> str:

@@ -22,9 +22,23 @@ la plume de Gemini ne suffit pas.
 
 Cinq workflows : `veille.yml`, `generate.yml`, `review.yml`, `publish.yml`, `token.yml`.
 
-Mode mixte : les piliers `chiffre`, `pedagogie` et `coulisses` partent tout seuls.
-Le pilier `position`, tout post citant un client et tout texte juge risque par la
-passe de critique attendent ta validation dans Telegram.
+**Validation humaine systematique.** Aucune publication ne part sans ton clic.
+Chaque brouillon arrive dans Telegram en deux messages : le visuel rendu en
+1200x1200, puis le texte avec trois boutons.
+
+| Bouton | Effet |
+|---|---|
+| Valide | part au prochain creneau de publication, et alimente le corpus |
+| Modifier | le bot attend ta consigne, puis renvoie une version revue |
+| Refuse | la publication est ecartee definitivement |
+
+Apres **Modifier**, ton message suivant est interprete comme la consigne. Une
+phrase courte est appliquee par le modele ; un texte de plus de 250 caracteres
+est pris tel quel comme remplacement integral. Dans les deux cas le visuel est
+refait pour rester coherent, et le brouillon revient avec ses trois boutons.
+
+La variable `AUTO_PUBLISH=1` rouvrirait un mode mixte ou les piliers surs
+partiraient seuls. Elle est desactivee, et c'est volontaire.
 
 ---
 
@@ -59,9 +73,24 @@ rafraichissement automatique sans partenariat Marketing.** C'est pour ca que
 `check_token.py` te previent 10 jours avant.
 
 ### 4. Le bot Telegram
-1. Dans Telegram, parler a `@BotFather` → `/newbot` → recuperer le jeton
-2. Envoyer un message a ton bot
-3. Ouvrir `https://api.telegram.org/bot<JETON>/getUpdates` et relever `message.chat.id`
+
+1. Dans Telegram, parler a `@BotFather` -> `/newbot` -> un nom affiche, puis un
+   identifiant qui finit par `bot`. Il rend le jeton : c'est `TELEGRAM_BOT_TOKEN`.
+2. Envoyer un premier message a son propre bot, pour que la conversation existe :
+   Telegram interdit a un bot d'ecrire le premier.
+3. Recuperer le chat id et tester la boucle d'un coup :
+
+```sh
+python3 scripts/get_chat_id.py
+```
+
+Le script demande le jeton sans l'afficher, identifie le bot, liste les chat id
+disponibles et envoie un message de confirmation dans Telegram.
+
+Ne PAS passer par `https://api.telegram.org/bot<JETON>/getUpdates` dans un
+navigateur, meme si la plupart des tutoriels le font : ca inscrit un jeton secret
+dans l'historique de navigation et dans les logs. Le script fait la meme chose sans
+laisser de trace, ni dans le navigateur, ni dans l'historique du shell.
 
 ### 5. La cle Claude
 https://console.anthropic.com/ → API keys.

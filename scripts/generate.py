@@ -4,7 +4,7 @@ Double passe volontaire. La passe de critique est ce qui separe un texte passabl
 d'un texte publiable, et elle ne coute que quelques centimes de plus.
 """
 import json, sys
-from lib import config, store, llm, telegram
+from lib import config, store, llm, telegram, render
 
 GABARIT_PAR_PILIER = {"chiffre": "A", "pedagogie": "B", "coulisses": "A", "position": "C"}
 VALIDATION_OBLIGATOIRE = {"position"}
@@ -131,6 +131,8 @@ def main() -> int:
         raise SystemExit("Aucune cle de redaction : definis GOOGLE_API_KEY "
                          "ou ANTHROPIC_API_KEY.")
     print("Redaction avec", llm.modele_actif())
+    print("Mode :", "publication automatique" if config.AUTO_PUBLISH
+          else "validation humaine systematique")
     data = store.load()
     besoin = config.POSTS_PER_RUN
     idees = store.pending_ideas(data, besoin)
@@ -166,9 +168,12 @@ def main() -> int:
                            + "\n".join(f"· {p}" for p in revu.get("problemes", [])[:4]))
             continue
 
-        auto = (pilier not in VALIDATION_OBLIGATOIRE
-                and not revu.get("risque_humain")
-                and not revu.get("cite_un_client"))
+        # Validation humaine systematique : aucun brouillon ne part sans un
+        # clic. AUTO_PUBLISH=1 rouvrirait le mode mixte, ce n'est pas le choix.
+        auto = config.AUTO_PUBLISH and (
+            pilier not in VALIDATION_OBLIGATOIRE
+            and not revu.get("risque_humain")
+            and not revu.get("cite_un_client"))
 
         item = {
             "id": store.new_id(),
@@ -196,18 +201,22 @@ def main() -> int:
                 if i["id"] == idee["id"]:
                     i["used"] = True
 
-        if auto:
-            telegram.send(
-                f"\U0001f7e2 <b>Programme automatiquement</b> · {pilier} · gabarit {gabarit}\n\n"
-                f"{item['texte'][:900]}",
-                buttons=[[{"text": "✕ Annuler finalement", "callback_data": f"no:{item['id']}"}]])
-        else:
-            telegram.send(
-                f"✍️ <b>A valider</b> · {pilier} · gabarit {gabarit}\n\n"
-                f"{item['texte'][:900]}\n\n"
-                f"<i>Accroches alternatives :</i>\n"
-                + "\n".join(f"· {h}" for h in item["hooks"][:2]),
-                buttons=telegram.draft_buttons(item["id"]))
+        # Le visuel est rendu maintenant, pas a la publication : Younes doit
+        # voir l'image et le texte avant de decider.
+        try:
+            png = render.build(item["gabarit"], item["visual"],
+                               config.OUT / f"{item['id']}.png")
+            telegram.send_photo(
+                png, f"<b>Brouillon</b> \u00b7 {pilier} \u00b7 gabarit {gabarit}")
+        except Exception as exc:
+            telegram.alert(f"Visuel non rendu ({item['id']}) : {exc}\n"
+                           "Le texte suit quand meme, mais verifie avant de valider.")
+
+        corps = item["texte"]
+        if item["hooks"]:
+            corps += "\n\n<i>Accroches alternatives :</i>\n" + "\n".join(
+                f"\u00b7 {h}" for h in item["hooks"][:2])
+        telegram.send(corps, buttons=telegram.draft_buttons(item["id"]))
 
     store.save(data)
     print(f"{crees} publication(s) ajoutee(s) a la file.")
