@@ -1,21 +1,34 @@
 name: Releve des validations Telegram
 on:
   schedule:
-    - cron: "10 6,8,10,12,14,16,18,20 * * *"
+    # Toutes les 20 minutes de 8h a 22h40 (heure de Paris en ete).
+    # Un clic dans Telegram trouve donc une reponse dans le quart d'heure.
+    - cron: "*/20 6-20 * * *"
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: releve-telegram
+  cancel-in-progress: false
 jobs:
   relever:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - name: Installer Chromium
-        run: |
-          pip install -r requirements.txt
-          python -m playwright install --with-deps chromium
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      # Chromium n'est utile que si Younes demande une reecriture : le visuel
+      # est alors refait. On le garde en cache pour ne pas le retelecharger a
+      # chaque passage, ce qui tiendrait le quota gratuit en otage.
+      - name: Chromium en cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-v1
+      - run: python -m playwright install chromium
       - name: Relever
         working-directory: scripts
         env:

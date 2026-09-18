@@ -63,6 +63,7 @@ def renvoyer(item: dict, entete: str) -> None:
 
 def main() -> int:
     data = store.load()
+    telegram.etat_polling()
     offset = int(data["state"].get("telegram_offset", 0))
     res = telegram.get_updates(offset)
     updates = res.get("result", []) if isinstance(res, dict) else []
