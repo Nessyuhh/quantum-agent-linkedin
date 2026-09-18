@@ -8,7 +8,7 @@ Les noms de modeles bougent trop vite pour etre figes dans le code : les deux
 fournisseurs sont interroges sur leur catalogue et on prend le plus recent
 utilisable. GOOGLE_MODEL ou ANTHROPIC_MODEL permettent d'en fixer un.
 """
-import json, re, urllib.request, urllib.error
+import json, re, time, urllib.error, urllib.request
 from . import config
 
 ANTHROPIC_API = "https://api.anthropic.com/v1"
@@ -17,19 +17,43 @@ GEMINI_API = "https://generativelanguage.googleapis.com/v1beta"
 _cache = {}
 
 
-def _http(url, payload=None, headers=None, method=None, timeout=180):
+# Codes qui traduisent une indisponibilite passagere, pas une erreur de notre
+# part : le palier gratuit de Gemini renvoie regulierement 503 aux heures de
+# pointe. On attend et on recommence plutot que de perdre un angle.
+CODES_PASSAGERS = {408, 429, 500, 502, 503, 504}
+
+
+def _http(url, payload=None, headers=None, method=None, timeout=180,
+          essais=4):
     data = json.dumps(payload).encode() if payload is not None else None
-    req = urllib.request.Request(url, data=data,
-                                 method=method or ("POST" if data else "GET"))
-    req.add_header("content-type", "application/json")
-    for k, v in (headers or {}).items():
-        req.add_header(k, v)
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"{url.split('/')[2]} a repondu {e.code} : "
-                           f"{e.read().decode()[:500]}") from None
+    hote = url.split("/")[2]
+    delai = 3
+    for tentative in range(1, essais + 1):
+        req = urllib.request.Request(
+            url, data=data, method=method or ("POST" if data else "GET"))
+        req.add_header("content-type", "application/json")
+        for k, v in (headers or {}).items():
+            req.add_header(k, v)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            corps = e.read().decode()[:400]
+            if e.code in CODES_PASSAGERS and tentative < essais:
+                print(f"[llm] {hote} a repondu {e.code}, "
+                      f"tentative {tentative}/{essais}, attente {delai}s")
+                time.sleep(delai)
+                delai *= 3
+                continue
+            raise RuntimeError(f"{hote} a repondu {e.code} : {corps}") from None
+        except urllib.error.URLError as e:
+            if tentative < essais:
+                print(f"[llm] {hote} injoignable ({e.reason}), "
+                      f"tentative {tentative}/{essais}, attente {delai}s")
+                time.sleep(delai)
+                delai *= 3
+                continue
+            raise RuntimeError(f"{hote} injoignable : {e.reason}") from None
 
 
 def provider() -> str:
@@ -75,6 +99,20 @@ def resolve_gemini_model() -> str:
         print(f"[llm] catalogue Gemini illisible, repli sur {modele} : {exc}")
     _cache["gemini"] = modele
     return modele
+
+
+def _modeles_gemini_replis():
+    """Une variante moins demandee, pour quand le modele principal sature."""
+    try:
+        data = _http(f"{GEMINI_API}/models?pageSize=200",
+                     headers={"x-goog-api-key": config.GOOGLE_API_KEY},
+                     timeout=60, essais=2)
+        noms = [m["name"].split("/")[-1] for m in data.get("models", [])
+                if "generateContent" in m.get("supportedGenerationMethods", [])]
+        return [n for n in noms if "flash" in n and "lite" in n
+                and not any(x in n for x in ("image", "tts", "audio"))][:1]
+    except Exception:
+        return []
 
 
 def _ask_gemini(system: str, prompt: str, max_tokens: int, json_mode: bool) -> str:
@@ -136,9 +174,29 @@ def modele_actif() -> str:
 
 def ask(system: str, prompt: str, max_tokens: int = 2000,
         json_mode: bool = False) -> str:
-    if provider() == "gemini":
+    if provider() != "gemini":
+        return _ask_claude(system, prompt, max_tokens, json_mode)
+
+    try:
         return _ask_gemini(system, prompt, max_tokens, json_mode)
-    return _ask_claude(system, prompt, max_tokens, json_mode)
+    except Exception as exc:
+        print(f"[llm] modele principal en echec : {exc}")
+
+    for repli in _modeles_gemini_replis():
+        try:
+            print(f"[llm] bascule sur {repli}")
+            _cache["gemini"] = repli
+            return _ask_gemini(system, prompt, max_tokens, json_mode)
+        except Exception as exc:
+            print(f"[llm] repli {repli} en echec : {exc}")
+
+    if config.ANTHROPIC_API_KEY:
+        print("[llm] Gemini indisponible, bascule sur Claude")
+        return _ask_claude(system, prompt, max_tokens, json_mode)
+
+    raise RuntimeError(
+        "Gemini est indisponible et aucune cle Claude n'est configuree. "
+        "Ajoute le secret ANTHROPIC_API_KEY pour avoir un filet.")
 
 
 def ask_json(system: str, prompt: str, max_tokens: int = 2000) -> dict:
