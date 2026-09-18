@@ -1,0 +1,34 @@
+name: Revue editoriale mensuelle
+on:
+  schedule:
+    - cron: "0 7 1 * *"      # le 1er du mois, 9h00 Paris en ete
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  revue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Analyser et proposer
+        working-directory: scripts
+        env:
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_MODEL: ${{ vars.GOOGLE_MODEL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python revue.py
+      - name: Enregistrer la revue
+        run: |
+          git config user.name "agent-linkedin"
+          git config user.email "agent@quantum-agency.fr"
+          git add content/queue.json content/revues
+          git diff --staged --quiet || git commit -m "revue: lecture du mois et angles proposes"
+          git pull --rebase --autostash || true
+          git push

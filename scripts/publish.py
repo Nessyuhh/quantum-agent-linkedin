@@ -45,8 +45,13 @@ def main() -> int:
     store.save(data)
 
     restants = len([i for i in data["items"] if i["status"] == "approved"])
-    telegram.send(f"✅ <b>Publie</b> · {item['pilier']}\n{item['texte'][:300]}…\n\n"
-                  f"<i>{restants} publication(s) encore en file.</i>")
+    lien = (f"https://www.linkedin.com/feed/update/{post_id}/"
+            if str(post_id).startswith("urn:li:") else "")
+    telegram.send(f"✅ <b>Publiée</b> · {item['pilier']} · "
+                  f"<code>{item['id']}</code>\n{item['texte'][:300]}…\n\n"
+                  + (f"{lien}\n\n" if lien else "")
+                  + f"<i>{restants} publication(s) encore en file. "
+                    f"Dans quelques jours, /stats pour saisir ses chiffres.</i>")
     print(f"Publie : {item['id']} -> {post_id}")
     return 0
 

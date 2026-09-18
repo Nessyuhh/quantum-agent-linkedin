@@ -8,10 +8,10 @@ body{background:var(--ivoire);color:var(--encre)}
 .eyebrow{color:var(--violet)}
 .wordmark .q{color:#0F172A} .wordmark .c{color:#475569}
 /* Composition : le chiffre commande, le reste suit en em. */
-.ligne{display:flex;align-items:baseline;gap:.13em}
+.ligne{display:block}
 .chiffre{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;
-  font-size:2.85em;line-height:.78;letter-spacing:-.01em}
-.unite{font-size:.86em;line-height:.9}
+  font-size:2.85em;line-height:.86;letter-spacing:-.01em;white-space:nowrap;display:block}
+.unite{display:block;font-size:.60em;line-height:1;margin-top:.06em;color:var(--encre)}
 .filet-grad{height:.022em;min-height:3px;background:var(--grad);margin:.2em 0 .18em}
 .reveal{font-family:'Archivo',system-ui,sans-serif;font-weight:400;text-transform:none;
   font-size:.255em;line-height:1.38}

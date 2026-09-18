@@ -10,8 +10,8 @@ brouillon revient avec ses trois boutons.
 
 Tout autre message libre devient une note de terrain dans la banque d'angles.
 """
-import json, sys
-from lib import config, store, telegram, llm, render, corpus
+import json, re, sys
+from lib import analyse, config, store, telegram, llm, render, corpus
 
 SEUIL_REMPLACEMENT = 250   # au-dela, on considere que c'est un texte complet
 
@@ -127,6 +127,77 @@ def main() -> int:
                           + f"\n· angles en reserve : {libres}")
             continue
 
+        if texte.startswith("/stats"):
+            attente = [i for i in data["items"]
+                       if i.get("status") == "published"
+                       and not (i.get("mesures") or {}).get("vues")]
+            if not attente:
+                telegram.send("Aucune publication en attente de chiffres. "
+                              "Elles sont toutes relevées.")
+                continue
+            data["state"]["attente_stats"] = True
+            lignes = []
+            for it in attente[:12]:
+                jour = (it.get("published_at") or "")[:10]
+                debut = (it.get("texte") or "").split("\n")[0][:70]
+                lignes.append(f"<code>{it['id']}</code> · {jour} · {it.get('pilier')}\n  {debut}")
+            telegram.send(
+                "<b>Relevé des chiffres</b>\n\n"
+                + "\n\n".join(lignes)
+                + "\n\nRéponds une ligne par publication, dans cet ordre :\n"
+                  "<code>identifiant vues réactions commentaires</code>\n\n"
+                  "Exemple : <code>013a26ea 1240 18 3</code>\n"
+                  "Tu peux en envoyer plusieurs d'un coup, une par ligne. "
+                  "Les commentaires sont facultatifs. <code>/fin</code> arrête la saisie.")
+            continue
+
+        if data["state"].get("attente_stats"):
+            if texte.startswith(("/fin", "/stop")):
+                data["state"].pop("attente_stats", None)
+                telegram.send("Saisie terminée.")
+                continue
+            lus, ignores = 0, []
+            for ligne in texte.splitlines():
+                # « 013a26ea 1240 18 3 » comme « 013a26ea : 1 240 vues,
+                # 18 reactions, 3 commentaires » : on lit l'identifiant, puis
+                # les nombres dans l'ordre, et on ignore les mots.
+                tete = re.match(r"^\s*([0-9a-f]{4,12})\b(.*)$", ligne)
+                nombres = (re.findall(r"\d+(?:[ \u00a0\u202f]\d{3})*", tete.group(2))
+                           if tete else [])
+                if not tete or len(nombres) < 2:
+                    if ligne.strip():
+                        ignores.append(ligne.strip()[:40])
+                    continue
+                item = store.find(data, tete.group(1))
+                if not item:
+                    ignores.append(tete.group(1))
+                    continue
+                nombre = lambda v: int(re.sub(r"[^0-9]", "", v)) if v else 0
+                item["mesures"] = {
+                    "vues": nombre(nombres[0]),
+                    "reactions": nombre(nombres[1]),
+                    "commentaires": nombre(nombres[2]) if len(nombres) > 2 else 0,
+                    "releve_le": store.now()}
+                lus += 1
+            if lus:
+                data["state"].pop("attente_stats", None)
+                s_ = analyse.synthese(data)
+                g = s_["engagement"]["global"]
+                telegram.send(
+                    f"✓ {lus} publication(s) chiffrée(s).\n\n"
+                    f"Cumul : {g['vues']} vues, {g['reactions']} réactions, "
+                    f"{g['commentaires']} commentaires.\n"
+                    f"Taux d'interaction : {round(g['taux'] * 100, 2)} %\n"
+                    f"<i>{s_['fiabilite']['engagement']}</i>"
+                    + (f"\n\nLignes non reconnues : {', '.join(ignores)}"
+                       if ignores else ""))
+                traites += 1
+                continue
+            telegram.send("Aucune ligne reconnue. Format attendu : "
+                          "<code>identifiant vues réactions commentaires</code>. "
+                          "<code>/fin</code> pour arrêter.")
+            continue
+
         if texte.startswith("/aide") or texte.startswith("/help"):
             telegram.send(
                 "<b>Ce que tu peux faire ici</b>\n\n"
@@ -134,7 +205,8 @@ def main() -> int:
                 "· Apres Modifier, ton message suivant est la consigne.\n"
                 "· Une phrase sur ce que tu as fait en mission devient un "
                 "angle, et passe devant la veille.\n"
-                "· /file donne l'etat de la file.")
+                "· /file donne l'état de la file.\n"
+                "· /stats ouvre le relevé des chiffres LinkedIn : une minute par mois, et la revue mensuelle sait ce qui porte.")
             continue
 
         # Un message qui suit un clic sur Modifier est une consigne d'edition.

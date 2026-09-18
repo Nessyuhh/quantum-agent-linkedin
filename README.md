@@ -154,6 +154,39 @@ ecrire a ta place, et c'est celle qui fait signer.
 
 **Suivre.** `/file` dans Telegram donne l'etat de la file.
 
+**Chiffrer, une minute par mois.** `/stats` liste les publications parties dont on
+n'a pas encore les chiffres. Tu reponds une ligne par publication :
+
+```
+013a26ea 1240 18 3
+```
+
+soit l'identifiant, les vues, les reactions, les commentaires. Les commentaires sont
+facultatifs, et une phrase du genre `013a26ea : 1 240 vues, 18 reactions` passe aussi.
+
+Pourquoi a la main : LinkedIn ne donne les statistiques d'un profil personnel qu'a une
+application dediee au produit *Community Management API*, qui doit etre le seul produit
+de l'application — il faudrait donc une deuxieme application LinkedIn et une deuxieme
+autorisation. Une minute de saisie par mois evite ce detour tant que le compte est
+jeune. Le jour ou il y aura une vingtaine de publications, la bascule vaudra le coup.
+
+---
+
+## La revue mensuelle
+
+Le 1er de chaque mois, `revue.py` relit deux choses : tes decisions (ce que tu valides,
+ce que tu fais reecrire, ce que tu refuses, par pilier, par gabarit, par source) et les
+chiffres saisis. Il en tire une lecture, des regles de redaction a ajouter, une
+experience a tenter — et **trois angles deposes dans la banque d'idees**, qui passent
+devant la veille a la redaction suivante. La boucle se referme : ce qui a porte
+commande ce qui s'ecrit ensuite.
+
+Le rapport est ecrit dans `content/revues/AAAA-MM.md` et versionne. Le digest arrive
+dans Telegram.
+
+Garde-fou : en dessous de six publications mesurees, l'agent parle d'indice et non de
+tendance, et il l'ecrit noir sur blanc. Un taux sur trois publications n'enseigne rien.
+
 ---
 
 ## Passer en autonomie complete
@@ -172,7 +205,7 @@ content/      la file de contenus et les sources de veille, versionnees dans git
 templates/    les 3 gabarits visuels, a la DA du site
 scripts/      l'agent
   lib/        clients Claude, LinkedIn, Telegram, rendu PNG
-.github/      les 4 workflows cron
+.github/      les 6 workflows cron
 ```
 
 ## Points de vigilance

@@ -32,7 +32,10 @@ def find(data: dict, item_id: str):
 
 def pending_ideas(data: dict, limit: int):
     fresh = [i for i in data["ideas"] if not i.get("used")]
-    fresh.sort(key=lambda i: (i.get("source") != "terrain", i.get("created_at", "")))
+    # Priorite : note de terrain, puis angle issu de la revue mensuelle
+    # (il vient de ce qui a deja fonctionne), puis veille.
+    rang = {"terrain": 0, "revue": 1}
+    fresh.sort(key=lambda i: (rang.get(i.get("source"), 2), i.get("created_at", "")))
     return fresh[:limit]
 
 def recent_subjects(data: dict, days: int = 60):
