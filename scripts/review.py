@@ -17,7 +17,10 @@ SEUIL_REMPLACEMENT = 250   # au-dela, on considere que c'est un texte complet
 
 
 def _systeme_edition() -> str:
-    return ("Tu reecris une publication LinkedIn de Quantum Consulting.\n\n"
+    return ("Tu réécris une publication LinkedIn de Quantum Consulting.\n\n"
+            "DEUX RÈGLES ABSOLUES : français correctement accentué, et aucun terme "
+            "technique, le lecteur est un dirigeant de TPE ou PME qui ne connaît pas "
+            "le sujet.\n\n"
             f"## VOIX\n{config.brand('voix')}\n\n"
             f"## LISTE NOIRE\n{config.brand('interdits')}")
 

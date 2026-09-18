@@ -10,22 +10,34 @@
 html,body{margin:0;padding:0}
 body{width:1200px;height:1200px;overflow:hidden;font-family:'Archivo',system-ui,sans-serif;
   -webkit-font-smoothing:antialiased}
-.board{width:1200px;height:1200px;padding:72px;display:flex;gap:40px}
-.rail{display:flex;gap:20px;align-items:stretch}
+.board{width:1200px;height:1200px;padding:64px;display:flex;gap:34px}
+
+/* Le rail vertical et sa mention pivotee, reprise de la page d'accueil. */
+.rail{display:flex;gap:18px;align-items:stretch;flex:0 0 auto}
 .rail .filet{width:1px}
 .rail .mention{writing-mode:vertical-rl;transform:rotate(180deg);
   font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.16em}
-.col{flex-grow:1;display:flex;flex-direction:column;justify-content:space-between}
+
+/* Trois bandes : en-tete et pied a hauteur fixe, la zone centrale prend tout
+   le reste. C'est elle qui donne sa taille a la composition. */
+.col{flex:1;min-width:0;display:flex;flex-direction:column}
+.head{flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;
+  gap:20px;min-height:52px}
+.zone{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;padding:28px 0}
+.foot{flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;
+  gap:20px;min-height:44px}
+
 .eyebrow{font-family:'Space Mono',monospace;font-size:17px;letter-spacing:.14em;line-height:1.7}
-.fig{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:.12em}
 .wordmark .q{font-size:17px;font-weight:600;letter-spacing:.18em}
 .wordmark .c{font-size:9px;font-weight:400;letter-spacing:.52em;margin-top:3px}
-.foot{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-.head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
 .display{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
   text-transform:uppercase}
 .grad-text{background-image:var(--grad);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text}
 .grad-text-clair{background-image:var(--grad-clair);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text}
-.rule{height:3px;background:var(--grad)}
+
+/* Tout ce qui est dans .scale est exprime en em : une seule valeur commande
+   la taille de l'ensemble, et _fit.js la cherche. */
+.scale{font-size:100px;display:flex;flex-direction:column}

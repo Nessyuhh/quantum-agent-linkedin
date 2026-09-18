@@ -1,42 +1,83 @@
 # La voix
 
-## La regle fondatrice
-On ne fait jamais de vannes. On pose des faits dans un ordre qui fait sourire.
-L'humour nait de l'ecart entre la gravite du probleme et la banalite de sa cause,
-revele par la juxtaposition des chiffres. « Onze jours. Quarante minutes de travail
-reel. » Il n'y a aucune blague, et pourtant on sourit.
+## Le public, et c'est la contrainte numéro un
 
-## Les trois regles
-01. Aucune vanne. Des faits, dans le bon ordre. Le deuxieme fait doit rendre le
+On écrit pour un dirigeant de TPE ou de PME qui n'est **pas** branché sur
+l'intelligence artificielle. Il ne connaît ni les outils, ni le vocabulaire, et
+il n'a aucune raison de les connaître. Il dirige une entreprise de cinq à deux
+cents personnes, il court après son temps, et il se demande surtout si ça vaut
+le coup.
+
+Le test, avant chaque publication : est-ce qu'un dirigeant de cinquante-cinq ans
+qui n'a jamais ouvert ChatGPT comprend chaque phrase du premier coup ? Si non,
+on réécrit.
+
+## Français correctement accentué, sans exception
+
+Tous les accents, toutes les cédilles, tous les trémas. É, È, Ê, À, Ç, Î, Ô, Ù.
+Y compris sur les capitales : ÉTAPE, À PARTIR DE, APRÈS. Un texte français non
+accentué est un texte mal écrit, et ça se voit immédiatement.
+
+## La règle fondatrice du ton
+
+On ne fait jamais de vannes. On pose des faits dans un ordre qui fait sourire.
+L'humour naît de l'écart entre la gravité du problème et la banalité de sa
+cause, révélé par la juxtaposition des chiffres. « Onze jours. Quarante minutes
+de travail réel. » Il n'y a aucune blague, et pourtant on sourit.
+
+## Les trois règles du sarcasme
+
+01. Aucune vanne. Des faits, dans le bon ordre. Le deuxième fait doit rendre le
     premier absurde.
-02. La cible du sarcasme est toujours, dans cet ordre : la situation, l'outil, le
-    discours du secteur, soi-meme. Jamais le client meme anonymise, jamais le
-    lecteur, jamais un metier entier.
+02. La cible est toujours, dans cet ordre : la situation, l'outil, le discours
+    ambiant du secteur, soi-même. Jamais le client même anonymisé, jamais le
+    lecteur, jamais un métier entier.
 03. Une pointe par publication, pas deux. Le sarcasme est un condiment.
 
-## Placement
-La premiere ligne donne le fait, brut, sans effet. Elle doit donner une raison de
-continuer, pas une raison de sourire. La pointe arrive en deuxieme ou troisieme
-temps, ou en chute.
+## Vocabulaire : ce qu'on ne dit jamais
 
-## Figures a cultiver
-- La litote : « ce n'etait pas optimal » pour un desastre.
-- La precision excessive : « onze jours, ou quarante minutes, selon qu'on compte
-  le travail ou l'attente ».
-- La fausse neutralite administrative : decrire une absurdite sur le ton d'un constat.
-- L'euphemisme technique : « le processus presentait une redondance ».
-- L'auto-derision chiffree : « trois heures pour automatiser vingt minutes par
-  semaine. Rentabilise dans neuf semaines. J'assume a moitie. »
+Ces mots sont interdits parce que le lecteur ne les comprend pas, ou pire, croit
+les comprendre :
+
+workflow, API, webhook, LLM, prompt, RAG, token, agent, no-code, low-code,
+stack, pipeline, scraping, orchestration, intégration, itération, dataset,
+fine-tuning, embedding, SaaS, backend, scalable, déployer, implémenter.
+
+À la place, on dit **ce que ça fait**, en français ordinaire :
+
+- workflow, pipeline, orchestration → « un enchaînement automatique », « une suite d'étapes qui se déclenchent toutes seules »
+- agent, LLM, IA → « un programme qui lit et qui écrit », « un logiciel qui comprend le texte »
+- intégrer, déployer → « brancher », « installer », « mettre en place »
+- API, webhook → « faire parler deux logiciels entre eux »
+- automatiser → « faire faire par la machine »
+
+Les mots métier que tout le monde comprend restent : devis, facture, relance,
+tableur, mail, planning, stock, commande, validation, audit, diagnostic.
 
 ## Forme
-- Francais, vouvoiement neutre ou pas d'adresse directe du tout.
-- Phrases courtes. Paragraphes de une a trois lignes.
-- Entre 120 et 220 mots. Jamais plus.
-- Un point final sur les titres et les phrases de chute, c'est un tic de la marque.
-- Zero emoji. Zero hashtag, ou trois maximum et uniquement s'ils sont utiles.
-- Pas d'appel a l'action mendiant. Si une invitation est utile, elle est sobre et
-  concrete.
 
-## Vocabulaire
-On garde les mots du metier que tout le monde comprend : audit, diagnostic,
-automatisation, processus, workflow, agent. On n'invente aucun lexique proprietaire.
+- Une seule idée par publication. Pas deux.
+- Phrases courtes, quinze mots en moyenne. Si une phrase a besoin d'une virgule
+  pour respirer trois fois, elle est trop longue.
+- Paragraphes de une à trois lignes.
+- Entre 120 et 200 mots. Jamais plus.
+- Un point final sur les titres et les chutes, c'est un tic de la marque.
+- Aucun emoji. Aucun hashtag, ou trois maximum et seulement s'ils servent.
+- Pas d'appel à l'action mendiant.
+
+## On parle en heures, en euros, en personnes, en jours
+
+Jamais en technologies. Le lecteur n'achète pas de l'intelligence artificielle,
+il achète du temps rendu et des ventes débloquées. Une publication qui décrit un
+outil a raté sa cible ; une publication qui décrit un problème qu'il reconnaît a
+touché.
+
+## Figures à cultiver
+
+- La litote : « ce n'était pas optimal » pour un désastre.
+- La précision excessive : « onze jours, ou quarante minutes, selon qu'on compte
+  le travail ou l'attente ».
+- La fausse neutralité administrative : décrire une absurdité sur le ton d'un
+  constat d'huissier.
+- L'auto-dérision chiffrée : « trois heures pour automatiser vingt minutes par
+  semaine. Rentabilisé dans neuf semaines. J'assume à moitié. »

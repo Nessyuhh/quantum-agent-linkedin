@@ -3,15 +3,18 @@
 Rotation sur trois publications par semaine. L'agent ne publie jamais deux fois
 le meme pilier d'affilee.
 
-VALIDATION HUMAINE SYSTEMATIQUE, tous piliers confondus. Aucun brouillon ne part
+VALIDATION HUMAINE SYSTÉMATIQUE, tous piliers confondus. Aucun brouillon ne part
 sans un clic de Younes dans Telegram. Il n'y a pas d'exception par pilier.
+
+Quel que soit le pilier, le niveau de langue est celui d'un dirigeant non
+technique : voir brand/voix.md, section vocabulaire.
 
 ## 01. chiffre — « J'ai chronometre »
 Une automatisation reelle, le temps qu'elle a pris a construire, le temps qu'elle
 fait gagner chaque semaine, converti en euros quand c'est possible.
 Gabarit visuel : A.
 VERROUILLE tant que brand/preuves.md ne contient aucune ligne de donnee : l'agent
-ne peut pas inventer un chiffre de resultat, donc il n'essaie meme pas.
+ne peut pas inventer un chiffre de résultat, donc il n'essaie même pas.
 
 ## 02. pedagogie — Expliquer sans jargon
 Un mecanisme explique a un dirigeant non technique : un agent, un webhook, une
