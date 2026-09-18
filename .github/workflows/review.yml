@@ -15,6 +15,9 @@ jobs:
       - name: Relever
         working-directory: scripts
         env:
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_MODEL: ${{ vars.GOOGLE_MODEL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

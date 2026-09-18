@@ -4,7 +4,9 @@ Agent autonome qui redige, illustre et publie trois publications LinkedIn par se
 a la voix et a la direction artistique de Quantum Consulting.
 
 Cout recurrent : GitHub Actions gratuit, Telegram gratuit, LinkedIn gratuit.
-Seule depense reelle : la redaction par Claude, de l'ordre de 0,30 a 1 euro par mois.
+La redaction tourne sur Gemini Flash en palier gratuit, donc **0 euro par mois**.
+La bascule vers Claude se fait par une variable, pour 0,30 a 1 euro par mois si
+la plume de Gemini ne suffit pas.
 
 ---
 
@@ -69,14 +71,17 @@ Settings → Secrets and variables → Actions → New repository secret :
 
 | Secret | Valeur |
 |---|---|
-| `ANTHROPIC_API_KEY` | ta cle Claude |
+| `GOOGLE_API_KEY` | ta cle Gemini (le demarrage gratuit) |
 | `LINKEDIN_ACCESS_TOKEN` | le jeton de l'etape 3 |
 | `LINKEDIN_PERSON_URN` | `urn:li:person:xxxx` |
 | `TELEGRAM_BOT_TOKEN` | le jeton du bot |
 | `TELEGRAM_CHAT_ID` | ton chat id |
 
-Variables optionnelles (onglet Variables) : `ANTHROPIC_MODEL`, `LINKEDIN_VERSION`,
-`POSTS_PER_RUN`.
+Plus tard, pour la bascule : secret `ANTHROPIC_API_KEY` et variable
+`LLM_PROVIDER` = `claude`.
+
+Variables optionnelles (onglet Variables) : `LLM_PROVIDER`, `GOOGLE_MODEL`,
+`ANTHROPIC_MODEL`, `LINKEDIN_VERSION`, `POSTS_PER_RUN`.
 
 ### 7. Le socle editorial — rien ne bloque le demarrage
 L'agent tourne des maintenant sans que tu aies rien a ecrire : la veille RSS lui
@@ -99,7 +104,7 @@ Deux fichiers montent en puissance avec le temps, sans effort de mise en route :
 ```sh
 cd scripts
 python3 veille.py                # remplit la banque d'angles, aucune cle requise
-ANTHROPIC_API_KEY=... TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 generate.py
+GOOGLE_API_KEY=... TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... python3 generate.py
 pip install -r ../requirements.txt && python3 -m playwright install chromium
 DRY_RUN=1 python3 publish.py     # fabrique le visuel sans rien publier
 open ../out/*.png
@@ -148,7 +153,11 @@ scripts/      l'agent
   octobre si ca te gene.
 - **En-tete de version LinkedIn.** `LINKEDIN_VERSION` vaut `202608`. LinkedIn retire
   les versions anciennes : si une publication echoue en 426, monte cette valeur.
-- **Nom du modele Claude.** Laisse `ANTHROPIC_MODEL` vide : l'agent interroge l'API
-  et prend le modele le plus recent disponible sur ton compte.
+- **Nom des modeles.** Laisse `GOOGLE_MODEL` et `ANTHROPIC_MODEL` vides : l'agent
+  interroge le catalogue du fournisseur et prend le modele le plus recent
+  utilisable. `generate.py` affiche en premiere ligne lequel il a retenu.
+- **Quotas Gemini gratuits.** Le palier gratuit limite les requetes par minute et
+  par jour. L'agent fait six appels par semaine, on en est tres loin. Si un jour
+  ca coince en 429, c'est le signal pour basculer sur Claude.
 - **Ne jamais publier via automatisation du navigateur.** L'API officielle est le
   seul canal sur.

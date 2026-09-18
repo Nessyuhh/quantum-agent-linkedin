@@ -9,8 +9,13 @@ TEMPLATES = ROOT / "templates"
 OUT = ROOT / "out"
 QUEUE = CONTENT / "queue.json"
 
+# Redaction. LLM_PROVIDER : "gemini", "claude", ou vide pour choisir selon la
+# cle presente. Les deux MODEL vides = l'agent prend le plus recent disponible.
+LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "")
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+GOOGLE_MODEL = os.environ.get("GOOGLE_MODEL", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "")  # vide = resolution auto
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "")
 
 LINKEDIN_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN", "")
 LINKEDIN_PERSON_URN = os.environ.get("LINKEDIN_PERSON_URN", "")

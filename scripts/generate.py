@@ -127,7 +127,10 @@ def choisir_pilier(data, idee) -> str:
 
 
 def main() -> int:
-    config.require("ANTHROPIC_API_KEY")
+    if not (config.GOOGLE_API_KEY or config.ANTHROPIC_API_KEY):
+        raise SystemExit("Aucune cle de redaction : definis GOOGLE_API_KEY "
+                         "ou ANTHROPIC_API_KEY.")
+    print("Redaction avec", llm.modele_actif())
     data = store.load()
     besoin = config.POSTS_PER_RUN
     idees = store.pending_ideas(data, besoin)
