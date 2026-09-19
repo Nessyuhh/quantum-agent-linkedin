@@ -1,6 +1,6 @@
 {
   "state": {
-    "telegram_offset": 843369496
+    "telegram_offset": 843369504
   },
   "ideas": [
     {
@@ -422,7 +422,7 @@
         "Violation de la règle des nombres : '10 minutes', '3 secondes', '8 minutes', '2 secondes', '1 heure', '20 minutes' écrits en chiffres mais le texte original contenait potentiellement des incohérences ou des éléments à vérifier selon les standards stricts.",
         "Présence d'un risque d'humiliation ou de culpabilisation du collaborateur ('stagiaire numérique distrait', 'peur constante de laisser passer une bêtise')."
       ],
-      "status": "pending",
+      "status": "rejected",
       "auto": false,
       "created_at": "2026-09-19T09:28:30+00:00",
       "published_at": null,
@@ -471,11 +471,12 @@
         "NOTE": "LA MACHINE RECOPIE.\nL'HUMAIN VALIDE."
       },
       "problemes_releves": [],
-      "status": "pending",
+      "status": "approved",
       "auto": false,
       "created_at": "2026-09-19T09:28:37+00:00",
       "published_at": null,
-      "post_urn": null
+      "post_urn": null,
+      "au_corpus": true
     }
   ]
 }
