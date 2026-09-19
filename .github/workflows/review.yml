@@ -1,9 +1,11 @@
 name: Releve des validations Telegram
 on:
   schedule:
-    # Toutes les 20 minutes de 8h a 22h40 (heure de Paris en ete).
-    # Un clic dans Telegram trouve donc une reponse dans le quart d'heure.
-    - cron: "*/20 6-20 * * *"
+    # Toutes les 30 minutes de 8h a 21h30 (heure de Paris en ete).
+    # Hypothese a verifier : demander 45 executions par jour sur un depot prive
+    # gratuit semble faire ignorer les horaires de TOUT le depot par GitHub. On
+    # allege pour voir si les taches quotidiennes repartent.
+    - cron: "*/30 6-19 * * *"
   workflow_dispatch:
 permissions:
   contents: write
