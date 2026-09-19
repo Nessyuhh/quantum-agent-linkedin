@@ -106,6 +106,9 @@ def etat_polling() -> dict:
     programme consomme les memes mises a jour, ca se voit ici et pas dans un
     releve vide qu'on prendrait pour un silence de Younes.
     """
+    moi = (_call("getMe", {}) or {}).get("result", {}) or {}
+    print(f"[telegram] jeton utilise : @{moi.get('username', '?')} "
+          f"(id {moi.get('id', '?')})")
     info = _call("getWebhookInfo", {})
     donnees = (info or {}).get("result", {}) or {}
     url = donnees.get("url") or ""
