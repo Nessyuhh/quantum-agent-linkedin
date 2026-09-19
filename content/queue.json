@@ -1,6 +1,6 @@
 {
   "state": {
-    "telegram_offset": 0
+    "telegram_offset": 843369496
   },
   "ideas": [
     {
@@ -491,11 +491,12 @@
         "Le texte utilise des majuscules d'insistance au milieu d'une phrase si l'on regarde la structure, mais surtout le texte initial ne contient pas de fautes graves d'accentuation. Cependant, il manque de rigueur administrative et le titre du visuel contient une expression idiomatique inutile.",
         "Le visuel utilise le terme '12 outils' et '1 méthode', il faut respecter scrupuleusement les contraintes de format du JSON demandé."
       ],
-      "status": "pending",
+      "status": "approved",
       "auto": false,
       "created_at": "2026-09-18T20:42:18+00:00",
       "published_at": null,
-      "post_urn": null
+      "post_urn": null,
+      "au_corpus": true
     }
   ]
 }
