@@ -40,7 +40,7 @@
       "source": "veille",
       "text": "Top 11 des entreprises d’automatisation des flux de travail en 2026 - Fortune Business Insights",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPcEEzdzh0UFJkdTE1aTg1bW1vZWhkclp3NzdMeEY1V05YTGJuMlp4Vlh2QzdjU2VuMXR4ZmRlSlFQZTdWc1k2SVplajFoYXdWYWdHc3QzOHU3aDdtejVrWXRDZjFSYjNFeW5uRUZpOU5kM2c0R2VmVmJqSzNYSkJNbFAtMWtvWTBrZjhKTXZsZ2ZLdndU?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:33+00:00"
     },
     {
@@ -56,7 +56,7 @@
       "source": "veille",
       "text": "IA en entreprise : 5 conseils pour automatiser les processus et mettre fin aux tracas liés à l'intégration des données - ZDNET",
       "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOay1UZU1RT216ZVh5eWxqRWt4OTVieHFjQ1VXOVBLb3ZlQ0xpRzkwU096YW1ucFJramp6M1JFeldueDk0TUV2N3BaN3QtZm5VN1dlOHpjQzRTb0FqRm9MUkxBY2ZUNUVJS0s4OVoxWEU1X0ZrclJldHhLc1ktczVsVTNqUC1sOVZNcllyNlhTdm9FTHI5N1hvZksxVkoxNHhaOU5ETDJ6NUM2Sm5qVTN1Q3hBWEUzOFNvaWxjRFoxSE5iMjJkaC1tVFJhZ3ZldEI0UWN0djhMVE9iWmNDRHkyVDdFTkJrRlhyUlg0WjVFdi0?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:33+00:00"
     },
     {
@@ -64,7 +64,7 @@
       "source": "veille",
       "text": "[Les Benchmarks du Dirigeant 2026] Les solutions d’IA & d’automatisation des processus - Beaboss.fr le site des dirigeants de petites et moyennes entreprises",
       "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNUFfb1czMzUtSU5tWGpmRWVxV2Z2NG5NUFk2YTN3V195S0lYemhBdEJ1V18xTjJMSnlzbjkyX1lzNHd2LV9USXU3ZmdiRnIwQXdHZmxUS0NfT3RKazdVMWhwYlNUa3VTYW5HUUlOX3ZVUWNsQzljZk0wUGNPQXp2STVFcUkyUk8xQ19HWUdFME9KeDJiNm5veHEtR3ZYR2xwLXdLWUtIYkpXSmFwOG1ONzJhVjdJSGtTV1BLY1d4SHBCcWFTY2hqVTA1TkdUbVUtSXlLcm13STd0cEXSAeABQVVfeXFMUFEtOU40U3VBb3p1QWd5aGV0eENtLWpNdFlEamVOLVFZM19FOXdOcTJNaXdyb3V2LVZxQ05zdTVidzlxdWszbEJNNUtScnUyV3UwWmowU3o3bU5rdHcxTDN6UDlUN2RtMFNNdnBfcW95dnFwYXkyLVZTS3lOencyU0RfelRZWWw0emRtd3FDQ2x2czlkeVFkSGJpQjJXZTZ0cWJCZDA4a2RKdWV1a0RsNXcxa1VmUVdkU3IxTWFqQThoT2RxWXRBSzNBQmZRd3F4R0hXR3hoUmJON3I4Vk9ad3Q?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:33+00:00"
     },
     {
@@ -244,5 +244,117 @@
       "created_at": "2026-09-18T20:41:22+00:00"
     }
   ],
-  "items": []
+  "items": [
+    {
+      "id": "41708d66",
+      "pilier": "pedagogie",
+      "gabarit": "B",
+      "angle": "Top 11 des entreprises d’automatisation des flux de travail en 2026 - Fortune Business Insights",
+      "source": "veille",
+      "texte": "Fortune Business Insights classe les onze meilleures entreprises d'automatisation pour deux mille vingt-six.\n\nLe dirigeant de la PME de douze personnes n'a pas lu l'étude.\n\nIl a juste remarqué que sa commerciale passe encore deux heures par jour à recopier les adresses mail de ses devis vers son fichier de suivi.\n\nIl n'y a pas besoin d'un classement mondial pour régler ce détail.\n\nIl suffit de brancher les deux logiciels entre eux pour que le texte saute tout seul de l'un vers l'autre.\n\nCela prend une demi-journée à installer.\n\nLe classement peut attendre deux mille vingt-sept.",
+      "hooks": [
+        "Fortune Business Insights vient de publier son classement.",
+        "Onze entreprises d'automatisation surveillées de près."
+      ],
+      "alt": "Un graphique montrant le temps perdu à recopier des données par rapport à un transfert automatique.",
+      "visual": {
+        "TITLE": "LE CLASSEMENT MONDIAL<br>NE CHANGERA RIEN À VOTRE TABLEUR.",
+        "BEFORE_TOTAL": "2 heures",
+        "before_steps": [
+          "Devis validé",
+          "Lecture de l'adresse",
+          "Ouverture du fichier",
+          "Copie manuelle",
+          "Vérification"
+        ],
+        "AFTER_TOTAL": "0 heure",
+        "after_steps": [
+          "Devis validé",
+          "Transfert automatique"
+        ],
+        "NOTE": "UN LOGICIEL QUI PARLE À UN AUTRE\nÉVITE À UN HUMAIN DE LE FAIRE"
+      },
+      "problemes_releves": [
+        "Utilisation du chiffre dix-neuf dans l'annee non accentuee (pas de probleme majeur trouve dans le texte original concernant les accents sur les dates, mais il faut verifier l'absence d'erreurs d'accentuation sur les majuscules)."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-19T08:32:24+00:00",
+      "published_at": null,
+      "post_urn": null
+    },
+    {
+      "id": "3c16c446",
+      "pilier": "position",
+      "gabarit": "C",
+      "angle": "IA en entreprise : 5 conseils pour automatiser les processus et mettre fin aux tracas liés à l'intégration des données - ZDNET",
+      "source": "veille",
+      "texte": "Un article propose ce matin cinq conseils pour automatiser les processus.\n\nLe dirigeant qui emploie vingt-cinq personnes dans la Loire ne l'a pas lu.\n\nIl a passé sa matinée à faire un copier-coller entre le logiciel de devis et le tableur de suivi.\n\nLe soir venu, il recommence pour la facture.\n\nLe problème n'est pas le manque de conseils.\n\nLe problème, c'est que personne ne lui a montré comment faire parler ses deux logiciels entre eux pour que la machine le fasse à sa place.\n\nDonner des conseils ne rend pas les heures.\n\nBrancher les logiciels, si.",
+      "hooks": [
+        "Cinq conseils pour automatiser les processus et mettre fin aux tracas.",
+        "Donner des conseils sur les tracas ne rend pas les heures."
+      ],
+      "alt": "Un écran affichant un tableur de suivi des factures à côté d'un logiciel de devis.",
+      "visual": {
+        "PHRASE": "Le problème n'est pas de lire des conseils.<br>C'est de <span class=\"grad-text-clair\">faire parler ses logiciels</span> entre eux."
+      },
+      "problemes_releves": [
+        "Le texte initial contenait une liste (Cinq conseils), ce qui est interdit par la liste noire."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-19T08:32:28+00:00",
+      "published_at": null,
+      "post_urn": null
+    },
+    {
+      "id": "3e67631f",
+      "pilier": "pedagogie",
+      "gabarit": "B",
+      "angle": "[Les Benchmarks du Dirigeant 2026] Les solutions d’IA & d’automatisation des processus - Beaboss.fr le site des dirigeants de petites et moyennes entreprises",
+      "source": "veille",
+      "texte": "Un nouveau rapport annonce les grandes tendances des logiciels pour deux mille vingt-six.\n\nLe dirigeant de PME n'a pas besoin d'un rapport.\n\nIl a besoin de savoir si sa facture met toujours trois jours à partir parce que le fichier est sur le bureau d'une personne en congé.\n\nLa seule vraie tendance pour votre entreprise, c'est de brancher vos logiciels entre eux pour que la machine fasse le travail sans demander la permission.\n\nCela prend quelques heures.\n\nLe rapport restera sur une table.\n\nLe devis partira tout seul.",
+      "hooks": [
+        "Un nouveau rapport annonce les grandes tendances des logiciels.",
+        "Le dirigeant de PME n'a pas besoin d'un rapport."
+      ],
+      "alt": "Capture d'un rapport de tendances sur fond neutre avec une tasse de café.",
+      "visual": {
+        "TITLE": "LE RAPPORT PRÉDIT L'AVENIR.<br>VOTRE DEVIS ATTEND TOUJOURS.",
+        "BEFORE_TOTAL": "3 jours",
+        "before_steps": [
+          {
+            "nom": "Devis rédigé",
+            "temps": "J+0"
+          },
+          {
+            "nom": "Validation chef",
+            "temps": "J+1"
+          },
+          {
+            "nom": "Classeur partagé",
+            "temps": "J+2"
+          },
+          {
+            "nom": "Envoi client",
+            "temps": "J+3"
+          }
+        ],
+        "AFTER_TOTAL": "2 minutes",
+        "after_steps": [
+          {
+            "nom": "Devis rédigé",
+            "temps": "H+0"
+          }
+        ],
+        "NOTE": "UN RAPPORT SE LIT.\nUN PROCESS SE CHANGE."
+      },
+      "problemes_releves": [],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-19T08:32:35+00:00",
+      "published_at": null,
+      "post_urn": null
+    }
+  ]
 }
