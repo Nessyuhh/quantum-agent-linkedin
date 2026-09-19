@@ -1,7 +1,9 @@
-name: Redaction hebdomadaire
+name: Redaction quotidienne
 on:
   schedule:
-    - cron: "0 17 * * 0"     # dimanche 19h00 Paris en ete, 18h00 en hiver
+    # Tous les matins : la soumission est un filet continu, pas une fournee.
+    # generate.py s'arrete de lui-meme quand le stock valide suffit.
+    - cron: "0 5 * * *"      # 7h00 Paris en ete, 6h00 en hiver
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,7 +31,8 @@ jobs:
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '3' }}
+          POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '1' }}
+          STOCK_CIBLE: ${{ vars.STOCK_CIBLE || '4' }}
         run: python generate.py
       - name: Enregistrer la file
         run: |

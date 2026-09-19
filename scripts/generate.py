@@ -192,6 +192,21 @@ def main() -> int:
     print("Mode :", "publication automatique" if config.AUTO_PUBLISH
           else "validation humaine systematique")
     data = store.load()
+
+    # Deux horloges independantes : celle-ci alimente la file, celle de
+    # publish.py la vide aux creneaux choisis. Quand la file est deja pleine,
+    # on ne redige pas : le stock commande, pas le calendrier.
+    valides = [i for i in data["items"] if i.get("status") == "approved"]
+    attente = [i for i in data["items"] if i.get("status") == "pending"]
+    if len(valides) >= config.STOCK_CIBLE:
+        print(f"{len(valides)} publication(s) validee(s) en reserve, "
+              f"cible {config.STOCK_CIBLE} : rien a rediger aujourd'hui.")
+        return 0
+    if len(attente) >= 3:
+        print(f"{len(attente)} brouillon(s) attendent deja une decision : "
+              "on n'en ajoute pas un de plus.")
+        return 0
+
     besoin = config.POSTS_PER_RUN
     idees = store.pending_ideas(data, besoin)
 

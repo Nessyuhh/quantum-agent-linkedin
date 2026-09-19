@@ -27,7 +27,11 @@ LINKEDIN_VERSION = os.environ.get("LINKEDIN_VERSION", "202608")
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT = os.environ.get("TELEGRAM_CHAT_ID", "")
 
-POSTS_PER_RUN = int(os.environ.get("POSTS_PER_RUN", "3"))
+POSTS_PER_RUN = int(os.environ.get("POSTS_PER_RUN", "1"))
+# Stock de publications validees a maintenir en file. Au-dela, la redaction
+# quotidienne se met en veille : inutile d'accumuler des brouillons que
+# Younes devra trier pour rien.
+STOCK_CIBLE = int(os.environ.get("STOCK_CIBLE", "4"))
 
 # Validation humaine systematique. Rien ne part sans un clic de Younes.
 # Mettre AUTO_PUBLISH=1 un jour ouvrirait la publication automatique des

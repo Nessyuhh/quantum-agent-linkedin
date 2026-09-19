@@ -1,7 +1,10 @@
 name: Publication LinkedIn
 on:
   schedule:
-    - cron: "15 6 * * 2,3,4"   # mardi, mercredi, jeudi, 8h15 Paris en ete
+    # Mardi, mercredi, jeudi : les trois jours ou l'audience professionnelle est
+    # la plus active. 8h45 Paris en ete, 7h45 en hiver, soit juste avant le pic
+    # de 9h. Les 90 premieres minutes decident de la diffusion.
+    - cron: "45 6 * * 2,3,4"
   workflow_dispatch:
 permissions:
   contents: write

@@ -208,6 +208,32 @@ scripts/      l'agent
 .github/      les 6 workflows cron
 ```
 
+## Les deux horloges
+
+Elles sont volontairement independantes.
+
+**L'horloge de la soumission** tourne tous les matins a 7h00 (Paris). Elle ecrit une
+publication, l'illustre, et l'envoie dans Telegram pour decision. Elle s'arrete
+d'elle-meme dans deux cas : quand la file contient deja `STOCK_CIBLE` publications
+validees (4 par defaut), ou quand trois brouillons attendent deja une reponse. Le
+stock commande, pas le calendrier : l'agent n'accumule jamais du travail de tri.
+
+**L'horloge de la publication** tourne mardi, mercredi et jeudi a 8h45 (7h45 en
+hiver). Elle prend la plus ancienne publication validee et la poste. Si la file
+validee est vide, elle ne publie rien et te le dit dans Telegram.
+
+Entre les deux, `content/queue.json` est la file d'attente : une publication validee
+y patiente jusqu'au prochain creneau.
+
+Pourquoi ces creneaux : mardi, mercredi et jeudi sont les trois jours ou l'audience
+professionnelle est la plus active, et le matin juste avant 9h est le pic le plus
+souvent cite, l'algorithme s'appuyant surtout sur l'engagement des 90 premieres
+minutes. Ces reperes viennent d'etudes d'agences, pas de LinkedIn : ils tiennent
+lieu d'hypothese de depart. Les vrais creneaux, ce sont tes propres chiffres qui
+les diront, via /stats et la revue mensuelle.
+
+---
+
 ## Les cinq gabarits visuels
 
 Aucune image generee par IA : cinq mises en page HTML, remplies par le modele puis
