@@ -61,6 +61,22 @@ def renvoyer(item: dict, entete: str) -> None:
     telegram.send(item["texte"], buttons=telegram.draft_buttons(item["id"]))
 
 
+def confirmer(chat_id, message_id, etiquette: str, message) -> None:
+    """Rend la decision visible, sans dependre de la bulle expirable.
+
+    Deux gestes : les trois boutons du brouillon deviennent une etiquette figee,
+    et un message recapitule. L'un comme l'autre restent valables des heures
+    apres le clic, contrairement a answerCallbackQuery.
+    """
+    if chat_id and message_id:
+        try:
+            telegram.retirer_boutons(chat_id, message_id, etiquette)
+        except Exception as exc:
+            print(f"[releve] etiquette non posee : {exc}")
+    if message:
+        telegram.send(message)
+
+
 def main() -> int:
     data = store.load()
     telegram.etat_polling()
@@ -76,7 +92,13 @@ def main() -> int:
         cb = upd.get("callback_query")
         if cb:
             action, _, item_id = (cb.get("data") or "").partition(":")
+            if action == "vu":          # etiquette figee, deja traitee
+                telegram.answer_callback(cb["id"], "Deja decide")
+                continue
             item = store.find(data, item_id)
+            origine = cb.get("message") or {}
+            chat_origine = (origine.get("chat") or {}).get("id")
+            msg_origine = origine.get("message_id")
             if not item:
                 telegram.answer_callback(cb["id"], "Publication introuvable")
                 continue
@@ -90,16 +112,27 @@ def main() -> int:
                 data["state"].pop("attente_edition", None)
                 telegram.answer_callback(cb["id"],
                                          "Valide, elle part au prochain creneau")
+                confirmer(chat_origine, msg_origine,
+                          "\u2705 Valid\u00e9e",
+                          f"\u2705 <b>Valid\u00e9e</b> \u00b7 <code>{item['id']}</code>\n"
+                          "Elle part au prochain cr\u00e9neau de publication.")
 
             elif action == "no":
                 item["status"] = "rejected"
                 data["state"].pop("attente_edition", None)
                 telegram.answer_callback(cb["id"], "Refuse, elle ne partira pas")
+                confirmer(chat_origine, msg_origine,
+                          "\u274c Refus\u00e9e",
+                          f"\u274c <b>Refus\u00e9e</b> \u00b7 <code>{item['id']}</code>\n"
+                          "Elle ne partira pas. Dis-moi ce qui n'allait pas si tu "
+                          "veux que la prochaine soit meilleure.")
 
             elif action == "mod":
                 data["state"]["attente_edition"] = item_id
                 item["status"] = "pending"
                 telegram.answer_callback(cb["id"], "Dis-moi quoi changer")
+                confirmer(chat_origine, msg_origine, "\u270f\ufe0f \u00c0 reprendre",
+                          None)
                 telegram.send(
                     "✏️ <b>Que faut-il changer ?</b>\n\n"
                     "Envoie une consigne courte, par exemple "

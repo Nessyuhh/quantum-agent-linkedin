@@ -216,8 +216,10 @@ def main() -> int:
                                config.OUT / f"{item['id']}.png")
             telegram.send_photo(
                 png, f"<b>Brouillon</b> \u00b7 {pilier} \u00b7 gabarit {gabarit}\n"
-                     f"<i>Les boutons sont relev\u00e9s toutes les 20 minutes : "
-                     f"le bouton tourne, puis la r\u00e9ponse arrive.</i>")
+                     f"<i>Au clic, le bouton tourne quelques secondes puis "
+                     f"s'arr\u00eate sans rien dire : c'est normal. Les boutons "
+                     f"sont relev\u00e9s toutes les 20 minutes, et ils seront "
+                     f"alors remplac\u00e9s par ta d\u00e9cision.</i>")
         except Exception as exc:
             telegram.alert(f"Visuel non rendu ({item['id']}) : {exc}\n"
                            "Le texte suit quand meme, mais verifie avant de valider.")

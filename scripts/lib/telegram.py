@@ -131,8 +131,29 @@ def get_updates(offset: int):
 
 
 def answer_callback(cb_id: str, text: str):
+    """La petite bulle grise au-dessus du bouton.
+
+    Telegram n'accepte cette reponse que dans les secondes qui suivent le clic.
+    Le releve tourne toutes les 20 minutes : la bulle est donc presque toujours
+    perdue, et c'est normal. La vraie confirmation passe par retirer les boutons
+    et envoyer un message, qui eux n'expirent jamais.
+    """
     return _call("answerCallbackQuery", {"callback_query_id": cb_id,
                                          "text": text})
+
+
+def retirer_boutons(chat_id, message_id, mention: str = ""):
+    """Remplace les trois boutons par une etiquette figee : la decision se voit.
+
+    C'est ce qui remplace la bulle expiree. Le message du brouillon porte
+    desormais son sort, meme des heures apres le clic.
+    """
+    markup = {"inline_keyboard": [[{"text": mention,
+                                    "callback_data": "vu"}]]} if mention else {
+        "inline_keyboard": []}
+    return _call("editMessageReplyMarkup", {"chat_id": chat_id,
+                                            "message_id": message_id,
+                                            "reply_markup": markup})
 
 
 def draft_buttons(item_id: str):
