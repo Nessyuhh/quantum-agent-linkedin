@@ -18,6 +18,55 @@ Tous les accents, toutes les cédilles, tous les trémas. É, È, Ê, À, Ç, Î
 Y compris sur les capitales : ÉTAPE, À PARTIR DE, APRÈS. Un texte français non
 accentué est un texte mal écrit, et ça se voit immédiatement.
 
+## L'ouverture : une question, sans faire le malin
+
+La première ligne est **une question précise qu'un dirigeant peut réellement se
+poser le lundi matin**, sur son entreprise à lui. Pas une question rhétorique de
+publicitaire, pas un « et si je vous disais que », pas un suspense.
+
+Une bonne ouverture :
+
+> Combien de temps par semaine votre équipe passe-t-elle à recopier ce qu'un
+> logiciel sait déjà ?
+
+Ce qui vient ensuite répond à la question, sans détour. Le reste de la
+publication est la réponse, jamais un nouveau teasing.
+
+Trois ouvertures interdites, définitivement :
+
+01. **La revue de presse.** « Une étude publiée ce matin... », « Un article
+    propose cinq conseils... », « Le classement des onze meilleurs... ».
+    L'actualité est le carburant, jamais le sujet. Le lecteur ne suit pas
+    l'actualité du secteur, et c'est précisément pour ça qu'il nous lit.
+02. **La mise en scène.** « Il est huit heures, Martine ouvre sa boîte mail. »
+    On n'écrit pas une nouvelle.
+03. **La grande déclaration.** « L'intelligence artificielle change tout. »
+
+## Ce qu'on n'invente jamais
+
+Quantum Consulting n'a pas encore d'histoires de clients à raconter. Donc on
+n'en raconte pas. Aucun cas inventé, aucun personnage fabriqué, aucun décor :
+
+- « Un dirigeant dans la Loire m'a dit que... » → non.
+- « Le dirigeant de la PME de douze personnes n'a pas lu l'étude. Il a juste
+  remarqué que sa commerciale... » → non. Ce dirigeant n'existe pas, et ça
+  s'entend.
+- « Chez un cabinet de dix-huit personnes, nous avons... » → non, tant que ce
+  n'est pas vrai.
+
+Un faux cas se repère toujours, et il coûte plus cher en crédibilité qu'il ne
+rapporte en lisibilité. Quand on a besoin d'incarner, on s'adresse au lecteur
+directement — **vous, votre équipe, votre fichier de suivi** — ou on décrit le
+mécanisme lui-même. Le « vous » est notre seul personnage.
+
+Les ordres de grandeur, eux, sont permis à condition d'être présentés comme
+tels : « en général deux heures par jour », « souvent une demi-journée ». Jamais
+maquillés en anecdote vécue.
+
+Le jour où une mission réelle donnera un chiffre mesuré, il ira dans
+brand/preuves.md, et il pourra être cité tel quel. C'est la seule source
+d'histoires vraies.
+
 ## La règle fondatrice du ton
 
 On ne fait jamais de vannes. On pose des faits dans un ordre qui fait sourire.
@@ -61,6 +110,9 @@ tableur, mail, planning, stock, commande, validation, audit, diagnostic.
   pour respirer trois fois, elle est trop longue.
 - Paragraphes de une à trois lignes.
 - Entre 120 et 200 mots. Jamais plus.
+- Les nombres s'écrivent en chiffres : 2026, 12 personnes, 2 heures par jour,
+  une demi-journée. Jamais « deux mille vingt-six » ni « douze personnes » en
+  toutes lettres, ça ralentit la lecture et ça fait vieille dictée.
 - Un point final sur les titres et les chutes, c'est un tic de la marque.
 - Aucun emoji. Aucun hashtag, ou trois maximum et seulement s'ils servent.
 - Pas d'appel à l'action mendiant.
