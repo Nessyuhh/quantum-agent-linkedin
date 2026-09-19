@@ -6,7 +6,16 @@ d'un texte publiable, et elle ne coute que quelques centimes de plus.
 import json, sys
 from lib import config, store, llm, telegram, render
 
-GABARIT_PAR_PILIER = {"chiffre": "A", "pedagogie": "B", "coulisses": "A", "position": "C"}
+# Chaque pilier dispose de deux mises en page possibles. On prend celle qui n'a
+# pas servi le plus recemment : cinq gabarits et deux ambiances donnent assez de
+# combinaisons pour qu'un lecteur regulier ne voie pas deux fois la meme image.
+GABARITS_PAR_PILIER = {
+    "chiffre": ["A", "E"],
+    "pedagogie": ["B", "D"],
+    "coulisses": ["D", "A"],
+    "position": ["C", "D"],
+    "preuve": ["E", "B"],
+}
 VALIDATION_OBLIGATOIRE = {"position"}
 ROTATION = ["chiffre", "pedagogie", "coulisses", "position"]
 
@@ -23,7 +32,18 @@ SCHEMA_VISUEL = {
          '"NOTE": "deux lignes courtes en capitales separees par \\n"}  '
          '(before_steps : 4 a 6 etapes, after_steps : 1 a 2)',
     "C": '"visual": {"PHRASE": "la phrase, 2 a 3 lignes separees par <br>, point final, '
-         'le segment a mettre en valeur entoure de <span class=\\"grad-text-clair\\">...</span>"}',
+         'le segment a mettre en valeur entoure de <span class=\\"grad-text\\">...</span>"}',
+    "D": '"visual": {"TITLE": "titre court en une ligne, point final", '
+         '"STEP1_T": "le premier temps, une phrase de 6 a 10 mots, sans point final", '
+         '"STEP1_D": "ce que ca donne concretement, une phrase de 12 a 18 mots", '
+         '"STEP2_T": "...", "STEP2_D": "...", "STEP3_T": "...", "STEP3_D": "...", '
+         '"TOTAL": "le bilan en capitales, 3 a 6 mots, ex UNE DEMI-JOURNEE SUR PLACE"}',
+    "E": '"visual": {"TITLE": "ce qu\'on mesure, une a deux lignes avec <br>, point final", '
+         '"LEFT_LABEL": "AUJOURD\'HUI", "LEFT_NUMBER": "le chiffre seul, 1 a 4 caracteres", '
+         '"LEFT_UNIT": "l\'unite et sa precision, 5 a 10 mots", '
+         '"RIGHT_LABEL": "APRES", "RIGHT_NUMBER": "le chiffre seul, 1 a 4 caracteres", '
+         '"RIGHT_UNIT": "l\'unite et sa precision, 5 a 10 mots", '
+         '"NOTE": "une phrase qui explique l\'ecart, 12 a 20 mots, point final"}',
 }
 
 
@@ -128,6 +148,16 @@ def critiquer(brouillon: dict, pilier: str, gabarit: str) -> dict:
     return llm.ask_json(systeme_critique(), prompt, max_tokens=2500)
 
 
+def choisir_gabarit(data, pilier: str) -> str:
+    """Parmi les mises en page du pilier, celle qui a le moins servi recemment."""
+    choix = GABARITS_PAR_PILIER.get(pilier) or ["B"]
+    recents = [i.get("gabarit") for i in data["items"][-4:]]
+    for g in choix:
+        if g not in recents:
+            return g
+    return choix[0]
+
+
 def preuves_disponibles() -> bool:
     """Le pilier chiffre exige une preuve reellement mesuree. Tant que
     preuves.md ne contient aucune ligne de donnee, on ne le propose pas :
@@ -182,7 +212,8 @@ def main() -> int:
 
     for idee in idees:
         pilier = choisir_pilier(data, idee)
-        gabarit = GABARIT_PAR_PILIER[pilier]
+        gabarit = choisir_gabarit(data, pilier)
+        theme = render.theme_pour(gabarit, len(data["items"]))
         try:
             brouillon = rediger(idee["text"], pilier, gabarit, deja,
                                 idee.get("source", "veille"))
@@ -207,6 +238,7 @@ def main() -> int:
             "id": store.new_id(),
             "pilier": pilier,
             "gabarit": gabarit,
+            "theme": theme,
             "angle": idee["text"][:200],
             "source": idee.get("source", "veille"),
             "texte": revu.get("texte") or brouillon.get("texte", ""),
@@ -233,7 +265,8 @@ def main() -> int:
         # voir l'image et le texte avant de decider.
         try:
             png = render.build(item["gabarit"], item["visual"],
-                               config.OUT / f"{item['id']}.png")
+                               config.OUT / f"{item['id']}.png",
+                               item.get("theme"))
             telegram.send_photo(
                 png, f"<b>Brouillon</b> \u00b7 {pilier} \u00b7 gabarit {gabarit}\n"
                      f"<i>Au clic, le bouton tourne quelques secondes puis "

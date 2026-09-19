@@ -18,7 +18,7 @@ def main() -> int:
     png = config.OUT / f"{item['id']}.png"
 
     try:
-        render.build(item["gabarit"], item["visual"], png)
+        render.build(item["gabarit"], item["visual"], png, item.get("theme"))
     except Exception as exc:
         telegram.alert(f"Rendu du visuel impossible ({item['id']}) : {exc}")
         raise

@@ -202,11 +202,36 @@ faut enrichir, pas l'agent qu'il faut lacher.
 ```
 brand/        le socle editorial, lu a chaque generation
 content/      la file de contenus et les sources de veille, versionnees dans git
-templates/    les 3 gabarits visuels, a la DA du site
+templates/    les 5 gabarits visuels, a la DA du site, en ivoire ou en panneau sombre
 scripts/      l'agent
   lib/        clients Claude, LinkedIn, Telegram, rendu PNG
 .github/      les 6 workflows cron
 ```
+
+## Les cinq gabarits visuels
+
+Aucune image generee par IA : cinq mises en page HTML, remplies par le modele puis
+photographiees en 1200 x 1200 par un navigateur sans fenetre. Gratuit, instantane,
+et rigoureusement a la charte.
+
+| Gabarit | Ce qu'il montre | Pour quel pilier |
+|---|---|---|
+| **A** | un chiffre geant, son unite, ce qu'il revele | chiffre, coulisses |
+| **B** | le meme processus avant et apres, en deux voies | pedagogie |
+| **C** | une affirmation plein cadre | position |
+| **D** | une methode en trois temps numerotes | pedagogie, position, coulisses |
+| **E** | deux mesures face a face, l'ecart saute aux yeux | chiffre, preuve |
+
+Chaque pilier dispose de deux gabarits possibles ; l'agent prend celui qui n'a pas
+servi dans les quatre dernieres publications. S'y ajoute une variante d'ambiance :
+le meme gabarit existe en ivoire et en panneau sombre, et les deux alternent. B
+reste clair, parce qu'un schema se lit mieux sur fond pale ; C reste sombre, c'est
+sa signature.
+
+Tout est pilote par des jetons de couleur dans `templates/_base.css` : changer la
+charte se fait a un seul endroit, les gabarits n'ont aucune couleur en dur.
+
+---
 
 ## Points de vigilance
 

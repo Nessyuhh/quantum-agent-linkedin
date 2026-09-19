@@ -1,14 +1,9 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="_base.css">
 <style>
-body{background:var(--ivoire);color:var(--encre)}
-.rail .filet{background:var(--encre-14)} .rail .mention{color:var(--encre-64)}
-.eyebrow{color:var(--violet)}
-.wordmark .q{color:#0F172A} .wordmark .c{color:#475569}
-/* Le titre et le schema partagent la meme echelle : le schema reste lisible
-   quel que soit le nombre d'etapes, et le titre remplit la largeur. */
+/* B : le meme travail, avant et apres. Le titre et le schema partagent l'echelle. */
 .titre{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
   text-transform:uppercase;font-size:.44em;line-height:1.06;margin-bottom:.40em}
 .lane{display:flex;flex-direction:column;gap:.12em}
@@ -18,29 +13,29 @@ body{background:var(--ivoire);color:var(--encre)}
 .lane-total{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
   font-size:.38em;line-height:1;text-transform:uppercase}
 .flow{display:flex;align-items:stretch;width:100%}
-.box{flex:1 1 0;min-width:0;height:.80em;padding:.09em .10em;background:#FFF;
+.box{flex:1 1 0;min-width:0;height:.80em;padding:.09em .10em;background:var(--boite);
   display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
 .box .n{font-family:'Archivo',system-ui,sans-serif;font-size:.125em;line-height:1.22;
   text-transform:none;font-weight:500}
 .box .t{font-family:'Space Mono',monospace;font-size:.095em}
-.avant .box{border:1px solid rgba(17,19,24,.2)} .avant .box .t{color:var(--encre-64)}
-.avant .box:first-child{border:1px dashed rgba(17,19,24,.35);background:#EFEFEA}
-.avant .link{flex:0 0 .16em;align-self:center;height:1px;background:rgba(17,19,24,.3)}
-.avant .lane-label,.avant .lane-total{color:var(--encre-64)}
-.apres .box{border:2px solid #7C3AED;flex:0 0 22%} .apres .box .t{color:var(--violet)}
+.avant .box{border:1px solid var(--trait-fort)} .avant .box .t{color:var(--texte-64)}
+.avant .box:first-child{border:1px dashed var(--trait-fort);background:var(--boite-morte)}
+.avant .link{flex:0 0 .16em;align-self:center;height:1px;background:var(--trait-fort)}
+.avant .lane-label,.avant .lane-total{color:var(--texte-64)}
+.apres .box{border:2px solid var(--accent);flex:0 0 22%} .apres .box .t{color:var(--accent)}
 .apres .link{flex:0 0 .16em;align-self:center;height:2px;
-  background:linear-gradient(90deg,#7C3AED,#A855F7)}
-.apres .lane-label,.apres .lane-total{color:var(--violet)}
+  background:linear-gradient(90deg,var(--g1),var(--g2))}
+.apres .lane-label,.apres .lane-total{color:var(--accent)}
 .reste{flex:1 1 auto;align-self:center;height:1px;margin-left:.16em;
-  background-image:repeating-linear-gradient(to right,rgba(17,19,24,.3) 0 .06em,transparent .06em .12em)}
+  background-image:repeating-linear-gradient(to right,var(--trait-fort) 0 .06em,transparent .06em .12em)}
 .note{font-family:'Space Mono',monospace;font-size:.095em;letter-spacing:.09em;
-  color:var(--encre-64);padding-left:.14em;line-height:1.5;white-space:pre-line;
+  color:var(--texte-64);padding-left:.14em;line-height:1.5;white-space:pre-line;
   align-self:center;flex:0 0 auto}
 </style></head>
-<body><div class="board">
+<body class="{{THEME}}"><div class="board">
   <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
   <div class="col">
-    <div class="head"><div></div><svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><defs><linearGradient id="q" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0%" stop-color="#7C3AED"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#q)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#q)" stroke-width="6" stroke-linecap="round"/></svg></div>
+    <div class="head"><div></div><svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><defs><linearGradient id="q" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop class="a" offset="0%"/><stop class="b" offset="50%"/><stop class="c" offset="100%"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#q)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#q)" stroke-width="6" stroke-linecap="round"/></svg></div>
     <div class="zone" data-fit-zone>
       <div class="scale" data-fit data-fit-min="40" data-fit-max="200">
         <div class="titre">{{TITLE}}</div>

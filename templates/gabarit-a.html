@@ -1,30 +1,26 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="_base.css">
 <style>
-body{background:var(--ivoire);color:var(--encre)}
-.rail .filet{background:var(--encre-14)} .rail .mention{color:var(--encre-64)}
-.eyebrow{color:var(--violet)}
-.wordmark .q{color:#0F172A} .wordmark .c{color:#475569}
-/* Composition : le chiffre commande, le reste suit en em. */
-.ligne{display:block}
+/* A : une mesure, son unite, ce qu'elle revele. Le chiffre commande. */
 .chiffre{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;
-  font-size:2.85em;line-height:.86;letter-spacing:-.01em;white-space:nowrap;display:block}
-.unite{display:block;font-size:.60em;line-height:1;margin-top:.06em;color:var(--encre)}
-.filet-grad{height:.022em;min-height:3px;background:var(--grad);margin:.2em 0 .18em}
-.reveal{font-family:'Archivo',system-ui,sans-serif;font-weight:400;text-transform:none;
-  font-size:.255em;line-height:1.38}
-.reveal b{font-weight:600;color:var(--violet)}
+  font-size:2.30em;line-height:.88;letter-spacing:-.012em;white-space:nowrap;display:block}
+.unite{display:block;font-size:.58em;line-height:1;margin-top:.05em;color:var(--texte)}
+.filet-grad{height:.022em;min-height:3px;margin:.24em 0 .20em}
+.reveal{font-family:'Archivo',system-ui,sans-serif;font-weight:400;font-size:.30em;
+  line-height:1.34;color:var(--texte)}
+.reveal b{font-weight:600;color:var(--accent)}
 </style></head>
-<body><div class="board">
+<body class="{{THEME}}"><div class="board">
   <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
   <div class="col">
-    <div class="head"><div class="eyebrow">{{EYEBROW}}</div><svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><defs><linearGradient id="q" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0%" stop-color="#7C3AED"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#q)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#q)" stroke-width="6" stroke-linecap="round"/></svg></div>
+    <div class="head"><div class="eyebrow">{{EYEBROW}}</div><svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><defs><linearGradient id="q" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop class="a" offset="0%"/><stop class="b" offset="50%"/><stop class="c" offset="100%"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#q)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#q)" stroke-width="6" stroke-linecap="round"/></svg></div>
     <div class="zone" data-fit-zone>
-      <div class="scale" data-fit data-fit-min="34" data-fit-max="230">
-        <div class="ligne"><span class="chiffre grad-text">{{NUMBER}}</span><span class="unite display">{{UNIT}}</span></div>
-        <div class="filet-grad"></div>
+      <div class="scale" data-fit data-fit-min="34" data-fit-max="220">
+        <div class="chiffre grad-text">{{NUMBER}}</div>
+        <div class="unite display">{{UNIT}}</div>
+        <div class="filet-grad grad-fond"></div>
         <div class="reveal">{{REVEAL}}</div>
       </div>
     </div>

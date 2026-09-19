@@ -55,7 +55,7 @@ def appliquer_edition(item: dict, message: str) -> dict:
 def renvoyer(item: dict, entete: str) -> None:
     try:
         png = render.build(item["gabarit"], item["visual"],
-                           config.OUT / f"{item['id']}.png")
+                           config.OUT / f"{item['id']}.png", item.get("theme"))
         telegram.send_photo(png, entete)
     except Exception as exc:
         telegram.alert(f"Visuel non rendu ({item['id']}) : {exc}")

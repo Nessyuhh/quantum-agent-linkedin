@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* D : une methode en trois temps. Les numeros font la trame verticale. */
+.titre{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
+  text-transform:uppercase;font-size:.46em;line-height:1.06;margin-bottom:.30em}
+.etape{display:flex;align-items:flex-start;gap:.22em;padding:.22em 0;
+  border-top:1px solid var(--trait)}
+.etape:last-child{border-bottom:1px solid var(--trait)}
+.num{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;
+  font-size:.62em;line-height:.88;flex:0 0 auto;min-width:1.05em}
+.txt{flex:1 1 auto;min-width:0}
+.t{font-family:'Archivo',system-ui,sans-serif;font-weight:600;font-size:.195em;
+  line-height:1.24}
+.d{font-family:'Archivo',system-ui,sans-serif;font-weight:400;font-size:.145em;
+  line-height:1.38;color:var(--texte-64);margin-top:.30em}
+.bilan{font-family:'Space Mono',monospace;font-size:.125em;letter-spacing:.14em;
+  color:var(--accent);margin-top:.26em}
+</style></head>
+<body class="{{THEME}}"><div class="board">
+  <div class="rail"><div class="filet"></div><div class="mention">CONSEIL &amp; FORMATION IA · PARIS</div></div>
+  <div class="col">
+    <div class="head"><div></div><svg viewBox="0 0 100 100" width="44" height="44" aria-hidden="true"><defs><linearGradient id="q" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop class="a" offset="0%"/><stop class="b" offset="50%"/><stop class="c" offset="100%"/></linearGradient></defs><path d="M 68 81.2 A 36 36 0 1 1 81.2 68" stroke="url(#q)" stroke-width="6" stroke-linecap="round" fill="none"/><line x1="60" y1="62" x2="88" y2="88" stroke="url(#q)" stroke-width="6" stroke-linecap="round"/></svg></div>
+    <div class="zone" data-fit-zone>
+      <div class="scale" data-fit data-fit-min="40" data-fit-max="200">
+        <div class="titre">{{TITLE}}</div>
+        <div class="etape"><div class="num grad-text">01</div><div class="txt"><div class="t">{{STEP1_T}}</div><div class="d">{{STEP1_D}}</div></div></div>
+        <div class="etape"><div class="num grad-text">02</div><div class="txt"><div class="t">{{STEP2_T}}</div><div class="d">{{STEP2_D}}</div></div></div>
+        <div class="etape"><div class="num grad-text">03</div><div class="txt"><div class="t">{{STEP3_T}}</div><div class="d">{{STEP3_D}}</div></div></div>
+        <div class="bilan">{{TOTAL}}</div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="wordmark"><div class="q">QUANTUM</div><div class="c">CONSULTING</div></div>
+    </div>
+  </div>
+</div><script src="_fit.js"></script></body></html>

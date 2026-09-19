@@ -1,43 +1,65 @@
-/* Charte Quantum Consulting - relevee sur quantum-agency.fr et le kit Logos-Quantum */
+/* Charte Quantum Consulting - relevee sur quantum-agency.fr et le kit Logos-Quantum.
+   Un seul jeu de jetons, deux ambiances : ivoire par defaut, panneau sombre en
+   variante. Les gabarits ne connaissent que les jetons, jamais les couleurs. */
 :root{
-  --ivoire:#F6F6F3; --encre:#111318; --encre-64:rgba(17,19,24,.64);
-  --encre-14:rgba(17,19,24,.14); --violet:#6D28D9; --ancre:#A855F7;
-  --panneau:#0D0720; --clair:#E2E8F0; --clair-64:#94A3B8;
-  --grad:linear-gradient(135deg,#7C3AED 0%,#A855F7 50%,#06B6D4 100%);
-  --grad-clair:linear-gradient(135deg,#DDD6FE 0%,#A855F7 50%,#22D3EE 100%);
+  --fond:#F6F6F3;
+  --texte:#111318;
+  --texte-64:rgba(17,19,24,.64);
+  --texte-38:rgba(17,19,24,.38);
+  --trait:rgba(17,19,24,.16);
+  --trait-fort:rgba(17,19,24,.30);
+  --accent:#6D28D9;
+  --boite:#FFFFFF;
+  --boite-morte:#EDEDE8;
+  --g1:#7C3AED; --g2:#A855F7; --g3:#06B6D4;
+  --logo-q:#0F172A; --logo-c:#475569;
+}
+body.sombre{
+  --fond:#0D0720;
+  --texte:#E8ECF4;
+  --texte-64:#9AA6BF;
+  --texte-38:rgba(232,236,244,.38);
+  --trait:rgba(196,181,253,.26);
+  --trait-fort:rgba(196,181,253,.45);
+  --accent:#C4B5FD;
+  --boite:rgba(255,255,255,.05);
+  --boite-morte:rgba(255,255,255,.02);
+  --g1:#DDD6FE; --g2:#A855F7; --g3:#22D3EE;
+  --logo-q:#E8ECF4; --logo-c:#9AA6BF;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{width:1200px;height:1200px;overflow:hidden;font-family:'Archivo',system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased}
+body{width:1200px;height:1200px;overflow:hidden;background:var(--fond);color:var(--texte);
+  font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 .board{width:1200px;height:1200px;padding:64px;display:flex;gap:34px}
 
-/* Le rail vertical et sa mention pivotee, reprise de la page d'accueil. */
+/* Le rail vertical et sa mention pivotee, repris de la page d'accueil. */
 .rail{display:flex;gap:18px;align-items:stretch;flex:0 0 auto}
-.rail .filet{width:1px}
-.rail .mention{writing-mode:vertical-rl;transform:rotate(180deg);
+.rail .filet{width:1px;background:var(--trait)}
+.rail .mention{writing-mode:vertical-rl;transform:rotate(180deg);color:var(--texte-64);
   font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.16em}
 
-/* Trois bandes : en-tete et pied a hauteur fixe, la zone centrale prend tout
-   le reste. C'est elle qui donne sa taille a la composition. */
+/* Trois bandes : en-tete et pied a hauteur fixe, la zone centrale prend tout le
+   reste. C'est elle qui donne sa taille a la composition. */
 .col{flex:1;min-width:0;display:flex;flex-direction:column}
 .head{flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;
   gap:20px;min-height:52px}
 .zone{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
-  overflow:hidden;padding:28px 0}
+  overflow:hidden;padding:26px 0}
 .foot{flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;
   gap:20px;min-height:44px}
 
-.eyebrow{font-family:'Space Mono',monospace;font-size:17px;letter-spacing:.14em;line-height:1.7}
-.wordmark .q{font-size:17px;font-weight:600;letter-spacing:.18em}
-.wordmark .c{font-size:9px;font-weight:400;letter-spacing:.52em;margin-top:3px}
+.eyebrow{font-family:'Space Mono',monospace;font-size:17px;letter-spacing:.14em;
+  line-height:1.7;color:var(--accent)}
+.wordmark .q{font-size:17px;font-weight:600;letter-spacing:.18em;color:var(--logo-q)}
+.wordmark .c{font-size:9px;font-weight:400;letter-spacing:.52em;margin-top:3px;color:var(--logo-c)}
 .display{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;
   text-transform:uppercase}
-.grad-text{background-image:var(--grad);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text}
-.grad-text-clair{background-image:var(--grad-clair);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text}
+.grad-text{background-image:linear-gradient(135deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-fond{background-image:linear-gradient(135deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%)}
+#q .a{stop-color:var(--g1)} #q .b{stop-color:var(--g2)} #q .c{stop-color:var(--g3)}
 
-/* Tout ce qui est dans .scale est exprime en em : une seule valeur commande
-   la taille de l'ensemble, et _fit.js la cherche. */
+/* Tout ce qui est dans .scale est exprime en em : une seule valeur commande la
+   taille de l'ensemble, et _fit.js la cherche. */
 .scale{font-size:100px;display:flex;flex-direction:column}
