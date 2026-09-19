@@ -80,7 +80,7 @@
       "source": "veille",
       "text": "Agents IA en entreprise : plus de responsabilités mais peu de temps gagné ? - blogdumoderateur.com",
       "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOQzZrczRjeDJDb2VRZjFtQklfb2NzR3A2dk5qcHNxWUxabkpETUo5WGh5Z0NsVzFORnI5YUxyM3h4RDg5bS15aXF3cGpIWkFlaVpabG11U1lWdktaYnFuaFVuWWtvUHFlNzJQb3lMZFhjOGpjeWZrSktzdE5fRExTNzBYSVF1dkgzdFM1dzFzVEw0QjZPc0E?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -88,7 +88,7 @@
       "source": "veille",
       "text": "À Nantes, cette start-up a une solution pour aider les entreprises à piloter l’intelligence artificielle - Ouest-France",
       "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxQRnNrTlFmN3RPSzZreUVOZ255M2dmb05XenBiZllfblNTRXBuamVqckFyUWRCTnYxZE95N215ZnNhODJydHFRbUVFdFhDdEg4VWhFbFR0cVlFb2Nua0RyUzZHUFJkWmVtQ3BhdDluN1hhU2taeXlRZndCNkNUQWU5ZzNLOUh1WkkySEVLZWJrZmJUYzFxU3N6R0Z0VHdUQlk2ZmYwc2EtQi1VSzBuWDUyX1dZM0h2aGdYRGdhUkJkOFFuOTVKQWw0MElHenJENVl4WTN4ZGJSVmNUemx2T3BjRHo2TEMzUm1feU5fMlN1ZXJDRjBlYl9wc09JMFlIZy1rY3h0Qm5kY3h4VXR1bE1fcFAwMXg5a19pbTJ4eFJ1eWpRdw?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -242,6 +242,22 @@
       "url": "https://openai.com/index/reimagining-advertising-with-ai",
       "used": false,
       "created_at": "2026-09-18T20:41:22+00:00"
+    },
+    {
+      "id": "veille-dac8a370",
+      "source": "veille",
+      "text": "Yvelines : avec RedArrow, les PME intègrent l’IA au cœur de leur logiciel métier - 24presse",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQVnVybTJXQ0E1OFNaZEg3Y1JvODRmOThidHFXbk1NVzFIQzNDTmFXb012c2pYQ0xUbmVvc2FWZ1ZLSzB3QmlJc3pqNnZxS2Y4bElvOXdkUTRlOWVBYkljUFRjYWFpTkdsNnhmLVJtYjZ4anlrczRrenZWNm1LakJqWHc1US13WjFlLUFQZVNsS0plR3NFM0REbGU0dmFhUVo3M3ZrUVNR?oc=5",
+      "used": false,
+      "created_at": "2026-09-19T09:26:05+00:00"
+    },
+    {
+      "id": "veille-95f65d0a",
+      "source": "veille",
+      "text": "Automatisation de la paie : avantages, risques et bonnes pratiques - Culture RH",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNemhjVE9ybjRPNGpwd0I4Ri1yZkFpRE9mM3BDOV9aQzZRdkY2eTlGNmx5c3dBLUltcWxXRVBIeDQwOHBpTGk3SWdGWXFSTndUT3BZdzJ2YnNoRVU2dnBTYlIxY1VYOGRRWGRXUkk2MzdsQVZZQ0xUdlJVX0N5SjVtOUFsSlVWSmM?oc=5",
+      "used": false,
+      "created_at": "2026-09-19T09:26:06+00:00"
     }
   ],
   "items": [
@@ -353,6 +369,111 @@
       "status": "pending",
       "auto": false,
       "created_at": "2026-09-19T08:32:35+00:00",
+      "published_at": null,
+      "post_urn": null
+    },
+    {
+      "id": "10281f13",
+      "pilier": "pedagogie",
+      "gabarit": "B",
+      "angle": "Agents IA en entreprise : plus de responsabilités mais peu de temps gagné ? - blogdumoderateur.com",
+      "source": "veille",
+      "texte": "Pourquoi vos logiciels récents vous demandent-ils souvent plus d'attention au lieu de vous en libérer ?\n\nQuand on installe un nouvel outil sans changer l'organisation, on n'économise pas du temps. On déplace juste la fatigue.\n\nPrenez le traitement des demandes entrantes. Avant, votre équipe lisait un message, cherchait le bon tarif dans un tableur, puis rédigeait une réponse en 10 minutes.\n\nAujourd'hui, un programme génère un brouillon en 3 secondes. Mais votre collaborateur doit vérifier chaque chiffre, relire le ton, corriger les erreurs et valider l'envoi. Résultat : 8 minutes passées à relire le travail d'une machine, avec la vigilance constante de ne rien laisser passer.\n\nLe temps gagné est dérisoire. En prime, la responsabilité de la vérification pèse plus lourd qu'avant.\n\nFaire faire une tâche par la machine n'a de sens que sur un chemin balisé : là où la règle est claire, la donnée propre et le résultat prévisible sans surveillance permanente.\n\nSi vous devez passer 1 heure à contrôler ce qu'un programme a fait en 2 secondes, vous n'avez rien simplifié. Vous avez juste ajouté une étape de contrôle inutile.",
+      "hooks": [
+        "Avez-vous remarqué que vos nouveaux outils vous font souvent perdre le temps qu'ils devaient vous faire gagner ?",
+        "Combien de minutes par jour votre équipe passe-t-elle à vérifier ce qu'un logiciel vient de rédiger tout seul ?"
+      ],
+      "alt": "Comparatif du temps de traitement d'un message client : 10 minutes de rédaction humaine contre 8 minutes de relecture et correction d'un texte généré par logiciel.",
+      "visual": {
+        "TITLE": "RÉDIGER UN DEVIS<br>OU SURVEILLER UNE MACHINE.",
+        "BEFORE_TOTAL": "10 min",
+        "before_steps": [
+          {
+            "nom": "Lecture du mail",
+            "temps": "min 0"
+          },
+          {
+            "nom": "Recherche des tarifs",
+            "temps": "min 2"
+          },
+          {
+            "nom": "Saisie du devis",
+            "temps": "min 6"
+          },
+          {
+            "nom": "Envoi au client",
+            "temps": "min 10"
+          }
+        ],
+        "AFTER_TOTAL": "8 min",
+        "after_steps": [
+          {
+            "nom": "Texte généré seul",
+            "temps": "sec 3"
+          },
+          {
+            "nom": "Relecture et corrections",
+            "temps": "min 8"
+          }
+        ],
+        "NOTE": "DEUX MINUTES DE GAGNÉES.\nTOUTE LA VIGILANCE CONSERVÉE."
+      },
+      "problemes_releves": [
+        "Violation de la règle des nombres : '10 minutes', '3 secondes', '8 minutes', '2 secondes', '1 heure', '20 minutes' écrits en chiffres mais le texte original contenait potentiellement des incohérences ou des éléments à vérifier selon les standards stricts.",
+        "Présence d'un risque d'humiliation ou de culpabilisation du collaborateur ('stagiaire numérique distrait', 'peur constante de laisser passer une bêtise')."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-19T09:28:30+00:00",
+      "published_at": null,
+      "post_urn": null
+    },
+    {
+      "id": "c2cd99d8",
+      "pilier": "pedagogie",
+      "gabarit": "B",
+      "angle": "À Nantes, cette start-up a une solution pour aider les entreprises à piloter l’intelligence artificielle - Ouest-France",
+      "source": "veille",
+      "texte": "Combien de logiciels différents votre équipe doit-elle ouvrir pour traiter une seule facture du matin au soir?\n\nIl y a le programme de gestion, le tableur de suivi, le logiciel de comptabilité et la boîte mail qui sert de passerelle entre les trois.\n\nPersonne n'a fait exprès de créer ce labyrinthe. Chaque service a acheté son outil au fil des années, selon son besoin du moment.\n\nLe résultat, c'est que vos collaborateurs passent leur journée à recopier d'un écran à l'autre des informations qui existent déjà.\n\nBrancher ces logiciels entre eux ne demande pas de changer vos habitudes. Cela demande juste de décider que vos équipes ont mieux à faire que de servir de liaison entre des programmes qui s'ignorent.\n\nFaire parler ces outils prend 3 jours. Les heures rendues, elles, se voient dès la première semaine.",
+      "hooks": [
+        "Combien de logiciels différents votre équipe doit-elle ouvrir pour traiter une seule facture du matin au soir ?",
+        "Pourquoi vos collaborateurs passent-ils encore leur journée à recopier des données d'un logiciel à un autre ?"
+      ],
+      "alt": "Schéma comparatif montrant le parcours complexe de traitement d'un document avant et après le branchement des logiciels.",
+      "visual": {
+        "TITLE": "QUATRE LOGICIELS POUR UN SEUL DOCUMENT.<br>AUCUN NE PARLE AUX AUTRES.",
+        "BEFORE_TOTAL": "4 logiciels",
+        "before_steps": [
+          {
+            "nom": "Réception mail",
+            "temps": "Étape 1"
+          },
+          {
+            "nom": "Saisie gestion",
+            "temps": "Étape 2"
+          },
+          {
+            "nom": "Report tableur",
+            "temps": "Étape 3"
+          },
+          {
+            "nom": "Validation compta",
+            "temps": "Étape 4"
+          }
+        ],
+        "AFTER_TOTAL": "1 circuit",
+        "after_steps": [
+          {
+            "nom": "Réception automatique",
+            "temps": "Instantané"
+          }
+        ],
+        "NOTE": "LA MACHINE RECOPIE.\nL'HUMAIN VALIDE."
+      },
+      "problemes_releves": [],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-19T09:28:37+00:00",
       "published_at": null,
       "post_urn": null
     }
