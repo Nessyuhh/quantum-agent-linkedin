@@ -208,6 +208,25 @@ scripts/      l'agent
 .github/      les 6 workflows cron
 ```
 
+## Ou partent les publications
+
+La page entreprise est la cible principale. Elle parle avec son propre jeton :
+LinkedIn interdit au produit Community Management API (celui qui autorise
+`w_organization_social`) de cohabiter avec d'autres produits sur une meme
+application. Il faut donc deux applications LinkedIn et deux jetons.
+
+| Secret | Ce qu'il contient |
+|---|---|
+| `LINKEDIN_ACCESS_TOKEN` | jeton du profil personnel, produit Share on LinkedIn |
+| `LINKEDIN_ORG_ACCESS_TOKEN` | jeton de la page, produit Community Management API |
+| `LINKEDIN_ORG_URN` | `urn:li:organization:104908740` |
+
+La variable `CIBLE_PUBLICATION` decide : `page` (defaut des que le jeton de la
+page existe), `profil`, ou `les_deux`. Aucun repli silencieux : si le jeton de
+la cible manque, l'agent alerte dans Telegram et ne publie rien ailleurs.
+
+---
+
 ## Les deux horloges
 
 Elles sont volontairement independantes.

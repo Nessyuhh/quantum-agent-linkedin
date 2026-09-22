@@ -31,6 +31,8 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           LINKEDIN_ORG_URN: ${{ secrets.LINKEDIN_ORG_URN }}
+          LINKEDIN_ORG_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ORG_ACCESS_TOKEN }}
+          CIBLE_PUBLICATION: ${{ vars.CIBLE_PUBLICATION }}
           LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION || '202608' }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

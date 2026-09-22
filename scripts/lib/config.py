@@ -21,7 +21,22 @@ ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "")
 
 LINKEDIN_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN", "")
 LINKEDIN_PERSON_URN = os.environ.get("LINKEDIN_PERSON_URN", "")
-LINKEDIN_ORG_URN = os.environ.get("LINKEDIN_ORG_URN", "")   # page entreprise, phase 4
+# La page entreprise parle avec son propre jeton : le produit Community
+# Management API vit sur une application distincte, et son autorisation
+# (w_organization_social) ne peut pas cohabiter avec celle du profil.
+LINKEDIN_ORG_URN = os.environ.get("LINKEDIN_ORG_URN", "")
+LINKEDIN_ORG_TOKEN = os.environ.get("LINKEDIN_ORG_ACCESS_TOKEN", "")
+
+# Ou vont les publications : "page", "profil", ou "les_deux".
+# Par defaut la page des que son jeton est en place : c'est elle qu'on alimente.
+CIBLE_PUBLICATION = os.environ.get("CIBLE_PUBLICATION", "")
+
+
+def cibles() -> list:
+    choix = CIBLE_PUBLICATION or ("page" if LINKEDIN_ORG_TOKEN else "profil")
+    if choix == "les_deux":
+        return ["page", "profil"]
+    return [choix]
 LINKEDIN_VERSION = os.environ.get("LINKEDIN_VERSION", "202608")
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
