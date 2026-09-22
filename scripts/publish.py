@@ -23,11 +23,19 @@ def main() -> int:
         telegram.alert(f"Rendu du visuel impossible ({item['id']}) : {exc}")
         raise
 
+    config.require("LINKEDIN_ACCESS_TOKEN")
+
     if config.DRY_RUN:
-        print(f"[dry-run] pret a publier {item['id']}, visuel {png}")
+        # Repetition generale : on va jusqu'au bout de ce qui peut casser
+        # (jeton, identite LinkedIn, rendu du visuel) sans rien publier.
+        owner = linkedin.author_urn()
+        print(f"[repetition] jeton accepte, auteur {owner}")
+        print(f"[repetition] pret a publier {item['id']}, visuel {png}")
+        telegram.send(f"\ud83e\uddea <b>R\u00e9p\u00e9tition g\u00e9n\u00e9rale</b>\n"
+                      f"Jeton accept\u00e9, auteur reconnu, visuel fabriqu\u00e9.\n"
+                      f"La publication <code>{item['id']}</code> partirait sans erreur.")
         return 0
 
-    config.require("LINKEDIN_ACCESS_TOKEN")
     try:
         owner = linkedin.author_urn()
         image_urn = linkedin.upload_image(png.read_bytes(), owner)

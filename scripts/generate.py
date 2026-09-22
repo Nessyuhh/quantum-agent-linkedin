@@ -148,6 +148,38 @@ def critiquer(brouillon: dict, pilier: str, gabarit: str) -> dict:
     return llm.ask_json(systeme_critique(), prompt, max_tokens=2500)
 
 
+DELAI_PEREMPTION_JOURS = 3
+
+
+def perimer_les_brouillons_oublies(data) -> None:
+    """Un brouillon sans reponse au bout de trois jours sort de la file.
+
+    Sans cela, trois brouillons oublies bloquent la redaction indefiniment :
+    c'est exactement ce qui s'est produit du 19 au 22 septembre. Un brouillon
+    qu'on n'a pas voulu trancher en trois jours est un brouillon qu'on ne
+    veut pas, et la machine doit pouvoir continuer sans lui.
+    """
+    from datetime import datetime, timedelta, timezone
+    limite = datetime.now(timezone.utc) - timedelta(days=DELAI_PEREMPTION_JOURS)
+    perimes = []
+    for item in data["items"]:
+        if item.get("status") != "pending":
+            continue
+        try:
+            cree = datetime.fromisoformat(item.get("created_at", ""))
+        except ValueError:
+            continue
+        if cree < limite:
+            item["status"] = "expired"
+            perimes.append(item)
+    if perimes:
+        telegram.alert(
+            f"\u23f3 {len(perimes)} brouillon(s) sans r\u00e9ponse depuis "
+            f"{DELAI_PEREMPTION_JOURS} jours sortent de la file.\n"
+            "La r\u00e9daction reprend son cours. Rien n'est publi\u00e9 sans ton clic.")
+        store.save(data)
+
+
 def choisir_gabarit(data, pilier: str) -> str:
     """Parmi les mises en page du pilier, celle qui a le moins servi recemment."""
     choix = GABARITS_PAR_PILIER.get(pilier) or ["B"]
@@ -196,6 +228,7 @@ def main() -> int:
     # Deux horloges independantes : celle-ci alimente la file, celle de
     # publish.py la vide aux creneaux choisis. Quand la file est deja pleine,
     # on ne redige pas : le stock commande, pas le calendrier.
+    perimer_les_brouillons_oublies(data)
     valides = [i for i in data["items"] if i.get("status") == "approved"]
     attente = [i for i in data["items"] if i.get("status") == "pending"]
     if len(valides) >= config.STOCK_CIBLE:

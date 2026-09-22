@@ -44,6 +44,25 @@ def brand(name: str) -> str:
     return p.read_text(encoding="utf-8") if p.exists() else ""
 
 def require(*names):
-    missing = [n for n in names if not globals().get(n)]
-    if missing:
-        raise SystemExit("Variables manquantes : " + ", ".join(missing))
+    """Verifie qu'une variable est bien disponible, sous son nom de secret
+    GitHub OU sous son nom interne.
+
+    Le 22 septembre, la publication a echoue sur \u00ab Variables manquantes :
+    LINKEDIN_ACCESS_TOKEN \u00bb alors que le secret etait bien en place : ce
+    module l'expose sous le nom LINKEDIN_TOKEN, et l'ancienne version ne
+    regardait que ses propres variables. Elle aurait echoue a tous les coups.
+    On regarde desormais les deux, et on previent dans Telegram plutot que de
+    mourir en silence dans un journal que personne ne lit.
+    """
+    manquantes = [n for n in names
+                  if not globals().get(n) and not os.environ.get(n)]
+    if not manquantes:
+        return
+    message = "Variables manquantes : " + ", ".join(manquantes)
+    try:
+        from . import telegram
+        telegram.alert("\u26a0\ufe0f <b>Publication impossible</b>\n" + message
+                       + "\n\nVerifie les secrets du depot GitHub.")
+    except Exception:
+        pass
+    raise SystemExit(message)
