@@ -221,9 +221,28 @@ application. Il faut donc deux applications LinkedIn et deux jetons.
 | `LINKEDIN_ORG_ACCESS_TOKEN` | jeton de la page, produit Community Management API |
 | `LINKEDIN_ORG_URN` | `urn:li:organization:104908740` |
 
-La variable `CIBLE_PUBLICATION` decide : `page` (defaut des que le jeton de la
-page existe), `profil`, ou `les_deux`. Aucun repli silencieux : si le jeton de
-la cible manque, l'agent alerte dans Telegram et ne publie rien ailleurs.
+La variable `CIBLE_PUBLICATION` decide ou part l'original : `page` (defaut des
+que le jeton de la page existe) ou `profil`. Aucun repli silencieux : si le
+jeton de la cible manque, l'agent alerte dans Telegram et ne publie rien
+ailleurs.
+
+### Le relais, et pourquoi il compte
+
+La page publie, **puis le profil repartage**. Ce n'est pas un doublon, c'est le
+mecanisme qui fait grossir une page qui debute :
+
+- une publication jumelle sur le profil ferait deux posts concurrents, et tout
+  l'engagement resterait sur le profil ;
+- un repartage pointe vers le post de la page. Les reactions, les commentaires
+  et les clics vont a la page, et le reseau personnel decouvre son existence.
+
+`RELAIS_PROFIL=0` le desactive, `RELAIS_DELAI_MIN` le decale de quelques minutes
+si on veut laisser le post respirer avant de l'amplifier. Le texte du repartage
+reprend l'accroche de rechange produite avec la publication, donc une phrase
+differente de celle du post : deux formulations valent mieux qu'un echo.
+
+Si le relais echoue, la publication de la page reste en ligne et l'alerte dit
+simplement de repartager a la main.
 
 ---
 

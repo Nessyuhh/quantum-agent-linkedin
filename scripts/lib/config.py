@@ -27,16 +27,21 @@ LINKEDIN_PERSON_URN = os.environ.get("LINKEDIN_PERSON_URN", "")
 LINKEDIN_ORG_URN = os.environ.get("LINKEDIN_ORG_URN", "")
 LINKEDIN_ORG_TOKEN = os.environ.get("LINKEDIN_ORG_ACCESS_TOKEN", "")
 
-# Ou vont les publications : "page", "profil", ou "les_deux".
-# Par defaut la page des que son jeton est en place : c'est elle qu'on alimente.
+# Ou part la publication d'origine : "page" des que son jeton existe, sinon
+# "profil". La page est ce qu'on alimente ; le profil sert de porte-voix.
 CIBLE_PUBLICATION = os.environ.get("CIBLE_PUBLICATION", "")
 
+# Le relais : apres la publication de la page, le profil la repartage. C'est
+# ainsi qu'un reseau personnel envoie du trafic vers une page qui debute.
+# Un repartage n'est pas un doublon : il pointe vers le post de la page, et
+# tout l'engagement qu'il declenche revient a la page.
+RELAIS_PROFIL = os.environ.get("RELAIS_PROFIL", "1") != "0"
+# Delai entre la publication et son relais, en minutes. Zero = tout de suite.
+RELAIS_DELAI_MIN = int(os.environ.get("RELAIS_DELAI_MIN", "0"))
 
-def cibles() -> list:
-    choix = CIBLE_PUBLICATION or ("page" if LINKEDIN_ORG_TOKEN else "profil")
-    if choix == "les_deux":
-        return ["page", "profil"]
-    return [choix]
+
+def cible() -> str:
+    return CIBLE_PUBLICATION or ("page" if LINKEDIN_ORG_TOKEN else "profil")
 LINKEDIN_VERSION = os.environ.get("LINKEDIN_VERSION", "202608")
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")

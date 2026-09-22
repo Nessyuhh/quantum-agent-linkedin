@@ -88,6 +88,32 @@ def upload_image(png_bytes: bytes, owner: str, token: str = None) -> str:
     return value["image"]
 
 
+def reshare(parent_urn: str, commentary: str, owner: str = None,
+            token: str = None) -> str:
+    """Repartage un post existant sous une autre identite.
+
+    C'est le mecanisme qui fait grossir une page qui debute : la page publie,
+    le profil repartage, et le reseau personnel arrive sur le post de la page.
+    Les reactions et les commentaires s'inscrivent alors au compte de la page,
+    pas a celui du profil, contrairement a une publication jumelle.
+    """
+    owner = owner or author_urn("profil")
+    token = token or config.LINKEDIN_TOKEN
+    body = {
+        "author": owner,
+        "commentary": commentary,
+        "visibility": "PUBLIC",
+        "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [],
+                         "thirdPartyDistributionChannels": []},
+        "lifecycleState": "PUBLISHED",
+        "isReshareDisabledByAuthor": False,
+        "reshareContext": {"parent": parent_urn},
+    }
+    _, headers = _request(f"{REST}/posts", json.dumps(body).encode(), "POST",
+                          _headers({"Content-Type": "application/json"}, token))
+    return headers.get("x-restli-id") or headers.get("X-RestLi-Id", "")
+
+
 def create_post(commentary: str, image_urn: str = None, alt_text: str = None,
                 owner: str = None, token: str = None) -> str:
     owner = owner or author_urn()
