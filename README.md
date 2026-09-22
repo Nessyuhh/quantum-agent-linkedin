@@ -236,10 +236,14 @@ mecanisme qui fait grossir une page qui debute :
 - un repartage pointe vers le post de la page. Les reactions, les commentaires
   et les clics vont a la page, et le reseau personnel decouvre son existence.
 
+**Le repartage est sec, sans un mot ajoute.** C'est le bouton « Republier »,
+pas « Republier avec commentaire ». Dans le fil des abonnes du profil, le post
+s'affiche alors au nom et au logo de la page : le lecteur voit d'abord Quantum
+Consulting, ce qui est precisement l'incitation au suivi recherchee. Une phrase
+ajoutee par dessus ramenerait l'attention sur le profil.
+
 `RELAIS_PROFIL=0` le desactive, `RELAIS_DELAI_MIN` le decale de quelques minutes
-si on veut laisser le post respirer avant de l'amplifier. Le texte du repartage
-reprend l'accroche de rechange produite avec la publication, donc une phrase
-differente de celle du post : deux formulations valent mieux qu'un echo.
+si on veut laisser le post respirer avant de l'amplifier.
 
 Si le relais echoue, la publication de la page reste en ligne et l'alerte dit
 simplement de repartager a la main.

@@ -88,20 +88,24 @@ def upload_image(png_bytes: bytes, owner: str, token: str = None) -> str:
     return value["image"]
 
 
-def reshare(parent_urn: str, commentary: str, owner: str = None,
+def reshare(parent_urn: str, commentary: str = "", owner: str = None,
             token: str = None) -> str:
-    """Repartage un post existant sous une autre identite.
+    """Repartage sec : le bouton \u00ab Republier \u00bb, sans ajouter un mot.
 
-    C'est le mecanisme qui fait grossir une page qui debute : la page publie,
-    le profil repartage, et le reseau personnel arrive sur le post de la page.
-    Les reactions et les commentaires s'inscrivent alors au compte de la page,
-    pas a celui du profil, contrairement a une publication jumelle.
+    C'est le mecanisme qui fait grossir une page qui debute. Le post qui
+    apparait dans le fil des abonnes du profil porte le nom et le logo de la
+    page : le lecteur voit d'abord Quantum Consulting, pas Younes. C'est
+    exactement l'incitation au suivi recherchee, et un commentaire ajoute par
+    dessus la detruirait en ramenant l'attention sur le profil.
+
+    Les reactions et les commentaires s'inscrivent au compte de la page, pas
+    a celui du profil, contrairement a une publication jumelle.
     """
     owner = owner or author_urn("profil")
     token = token or config.LINKEDIN_TOKEN
     body = {
         "author": owner,
-        "commentary": commentary,
+        "commentary": commentary or "",
         "visibility": "PUBLIC",
         "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [],
                          "thirdPartyDistributionChannels": []},

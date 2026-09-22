@@ -4,11 +4,6 @@ from pathlib import Path
 from lib import config, store, telegram, render, linkedin
 
 
-# Ce que le profil dit en repartageant, quand la publication n'a pas fourni
-# d'accroche de rechange. Court, factuel, sans emphase.
-PHRASE_DE_RELAIS = "Ce qu'on voit sur le terrain, en ce moment."
-
-
 def main() -> int:
     data = store.load()
     pret = [i for i in data["items"] if i["status"] == "approved"]
@@ -73,9 +68,12 @@ def main() -> int:
     if relais and str(post_id).startswith("urn:li:"):
         if config.RELAIS_DELAI_MIN:
             time.sleep(config.RELAIS_DELAI_MIN * 60)
-        mot = (item.get("hooks") or [""])[0].strip() or PHRASE_DE_RELAIS
+        # Repartage sec, sans commentaire : dans le fil des abonnes du profil,
+        # le post s'affiche au nom et au logo de la page. Ajouter une phrase
+        # ramenerait l'attention sur le profil, c'est exactement l'inverse du
+        # but recherche.
         try:
-            relais_urn = linkedin.reshare(post_id, mot)
+            relais_urn = linkedin.reshare(post_id)
             print(f"Relaye depuis le profil : {relais_urn}")
         except Exception as exc:
             # Le relais est un bonus : son echec ne doit pas annuler une
