@@ -72,7 +72,7 @@
       "source": "veille",
       "text": "AVIS D’EXPERT – L’autonomie des agents d’IA exige une cybersécurité repensée - Solutions-Numeriques",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZl8zcE9URXJEV29LaXVXQTFwN251WTd5SUxiWUh3aDVjTEF4WWtweXJHRDBsSXlXeEJxbzVhZVpMbXZZMEtnU2hzQTVIbkRiOTVWMGhFYlZfeFphQ0pyVEVpWlVtbUNuemhyODRqVlZ6TnNLai1vRWlaNkpsV2JvUHVpY01IVHFCSVVHdGtWNEp5dms3dGptNUlSM2dnOGI0Xy1JQzZadjA4M3QzV0E?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -309,7 +309,7 @@
       "problemes_releves": [
         "Utilisation du chiffre dix-neuf dans l'annee non accentuee (pas de probleme majeur trouve dans le texte original concernant les accents sur les dates, mais il faut verifier l'absence d'erreurs d'accentuation sur les majuscules)."
       ],
-      "status": "pending",
+      "status": "expired",
       "auto": false,
       "created_at": "2026-09-19T08:32:24+00:00",
       "published_at": null,
@@ -333,7 +333,7 @@
       "problemes_releves": [
         "Le texte initial contenait une liste (Cinq conseils), ce qui est interdit par la liste noire."
       ],
-      "status": "pending",
+      "status": "expired",
       "auto": false,
       "created_at": "2026-09-19T08:32:28+00:00",
       "published_at": null,
@@ -382,7 +382,7 @@
         "NOTE": "UN RAPPORT SE LIT.\nUN PROCESS SE CHANGE."
       },
       "problemes_releves": [],
-      "status": "pending",
+      "status": "expired",
       "auto": false,
       "created_at": "2026-09-19T08:32:35+00:00",
       "published_at": null,
@@ -493,6 +493,36 @@
       "published_at": "2026-09-22T18:15:20+00:00",
       "post_urn": "urn:li:share:7508227447918886912",
       "au_corpus": true
+    },
+    {
+      "id": "b4b52669",
+      "pilier": "pedagogie",
+      "gabarit": "D",
+      "theme": "sombre",
+      "angle": "AVIS D’EXPERT – L’autonomie des agents d’IA exige une cybersécurité repensée - Solutions-Numeriques",
+      "source": "veille",
+      "texte": "Combien de temps votre équipe passe-t-elle à vérifier que le nouveau logiciel ne va pas perdre vos données sensibles ?\n\nOn vous promet des programmes autonomes qui gèrent tout tout seuls. Dans la vraie vie, vous n'avez aucune envie de confier vos fichiers clients à un outil dont vous ne savez pas où vont les informations.\n\nLa sécurité informatique ne demande pas de tout bloquer. Elle demande juste de savoir exactement ce que fait le programme.\n\nBrancher un outil qui fait gagner des heures à votre équipe ne signifie pas ouvrir toutes les portes de votre entreprise.\n\nOn regarde ensemble ce qui sort et ce qui entre. On garde le contrôle sur chaque étape.\n\nLe gain de temps n'a aucune valeur si vous passez vos nuits à vous demander si vos données sont en sécurité.\n\nUn système simple se protège tout seul.",
+      "hooks": [
+        "Combien de temps votre équipe passe-t-elle à vérifier que le nouveau logiciel ne va pas perdre vos données sensibles ?",
+        "Savez-vous exactement où vont les données que vos logiciels manipulent chaque jour ?"
+      ],
+      "alt": "Schéma simple montrant le passage des données entre les logiciels de l'entreprise et la zone de sécurité.",
+      "visual": {
+        "TITLE": "Gagner du temps sans ouvrir toutes les portes.",
+        "STEP1_T": "Cartographier vos données sensibles",
+        "STEP1_D": "Identifier précisément où se trouvent vos fichiers clients et vos documents importants.",
+        "STEP2_T": "Vérifier chaque passage d'un logiciel à l'autre",
+        "STEP2_D": "S'assurer qu'aucun outil ne laisse sortir des informations sans votre accord explicite.",
+        "STEP3_T": "Garder le contrôle total",
+        "STEP3_D": "Laisser la machine exécuter les tâches répétitives pendant que vous validez les décisions.",
+        "TOTAL": "VOTRE SÉCURITÉ RESTE À VOUS"
+      },
+      "problemes_releves": [],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-23T09:40:05+00:00",
+      "published_at": null,
+      "post_urn": null
     }
   ]
 }
