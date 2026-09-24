@@ -1,6 +1,6 @@
 {
   "state": {
-    "telegram_offset": 0
+    "telegram_offset": 843369516
   },
   "ideas": [
     {
@@ -298,6 +298,13 @@
       "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPTTJEcXZ1elkxMXNzdHdSX013dVdqMnp1VlBvb2dYOXI4dWNzc25XMHdRQXNJaDhsZkpJR2FGU0lMNkdCMDd4N05SUk1lVnhZc2pvSjEwTTJ4X0x4OFBjQXNvZG5NTG1hcUI3WHJvSTN5UURtU0dWeHp4TGh0VHNrVFRIbVNpMDlfdVBKZTMyN2NDZ0tZWm5JMQ?oc=5",
       "used": false,
       "created_at": "2026-09-23T10:15:47+00:00"
+    },
+    {
+      "id": "idee-05cd0640",
+      "source": "terrain",
+      "text": "Test",
+      "used": false,
+      "created_at": "2026-09-24T06:46:26+00:00"
     }
   ],
   "items": [
@@ -542,11 +549,12 @@
         "TOTAL": "VOTRE SÉCURITÉ RESTE À VOUS"
       },
       "problemes_releves": [],
-      "status": "pending",
+      "status": "approved",
       "auto": false,
       "created_at": "2026-09-23T09:40:05+00:00",
       "published_at": null,
-      "post_urn": null
+      "post_urn": null,
+      "au_corpus": true
     }
   ]
 }
