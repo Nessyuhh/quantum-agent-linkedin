@@ -27,8 +27,8 @@ LINKEDIN_PERSON_URN = os.environ.get("LINKEDIN_PERSON_URN", "")
 LINKEDIN_ORG_URN = os.environ.get("LINKEDIN_ORG_URN", "")
 LINKEDIN_ORG_TOKEN = os.environ.get("LINKEDIN_ORG_ACCESS_TOKEN", "")
 
-# Ou part la publication d'origine : "page" des que son jeton existe, sinon
-# "profil". La page est ce qu'on alimente ; le profil sert de porte-voix.
+# Ou part la publication d'origine. La page est la cible, toujours ; le profil
+# ne sert que de porte-voix : il repartage, il ne publie pas.
 CIBLE_PUBLICATION = os.environ.get("CIBLE_PUBLICATION", "")
 
 # Le relais : apres la publication de la page, le profil la repartage. C'est
@@ -41,7 +41,20 @@ RELAIS_DELAI_MIN = int(os.environ.get("RELAIS_DELAI_MIN", "0"))
 
 
 def cible() -> str:
-    return CIBLE_PUBLICATION or ("page" if LINKEDIN_ORG_TOKEN else "profil")
+    """La cible est la page. Point.
+
+    Cette fonction retombait sur le profil des que le jeton de la page
+    manquait. Le 24 septembre, une publication est donc partie du profil de
+    Younes alors que la consigne est la page depuis le premier jour. Un repli
+    silencieux sur la mauvaise identite est pire qu'une publication qui n'a
+    pas lieu : un post deja vu par le reseau ne se defait pas, alors qu'un
+    brouillon qui attend part le lendemain.
+
+    La cible reste donc "page" tant que personne ne demande explicitement le
+    contraire (CIBLE_PUBLICATION=profil), et publish.py s'arrete en prevenant
+    dans Telegram tant que le jeton de la page n'est pas la.
+    """
+    return CIBLE_PUBLICATION or "page"
 LINKEDIN_VERSION = os.environ.get("LINKEDIN_VERSION", "202608")
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")

@@ -16,6 +16,24 @@ def main() -> int:
 
     item = pret[0]
     png = config.OUT / f"{item['id']}.png"
+    cible = config.cible()
+
+    # Garde-fou d'identite. Aucun repli sur le profil n'est tolere : si la
+    # page n'a pas encore son jeton, la publication attend son tour. Le
+    # brouillon reste "approved" et partira, depuis la page, au premier
+    # creneau ou le jeton sera la. On previent, et on s'arrete proprement
+    # (code 0) : ce n'est pas une panne, c'est une attente.
+    if cible == "page" and not config.LINKEDIN_ORG_TOKEN:
+        telegram.alert(
+            "\u23f8\ufe0f <b>Publication mise en attente</b>\n"
+            f"La publication <code>{item['id']}</code> est pr\u00eate, mais la page "
+            "Quantum Consulting n'a pas encore son jeton.\n\n"
+            "<b>Rien n'est parti.</b> Je ne publie plus depuis ton profil : "
+            "la page est la seule cible.\n"
+            "Le brouillon reste en file et partira d\u00e8s que LinkedIn aura "
+            "accord\u00e9 la Community Management API.")
+        print("[garde-fou] jeton de la page absent : publication reportee.")
+        return 0
 
     try:
         render.build(item["gabarit"], item["visual"], png, item.get("theme"))
@@ -23,7 +41,6 @@ def main() -> int:
         telegram.alert(f"Rendu du visuel impossible ({item['id']}) : {exc}")
         raise
 
-    cible = config.cible()
     config.require("LINKEDIN_ORG_ACCESS_TOKEN" if cible == "page"
                    else "LINKEDIN_ACCESS_TOKEN")
     relais = (cible == "page" and config.RELAIS_PROFIL
