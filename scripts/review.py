@@ -89,6 +89,16 @@ def main() -> int:
     for upd in updates:
         offset = max(offset, int(upd.get("update_id", 0)) + 1)
 
+        # Le bot est joignable par n'importe qui sur Telegram. Sans ce filtre,
+        # un inconnu qui lui ecrit voit son texte range dans la banque d'angles,
+        # et peut meme remplacer un brouillon si l'agent attend une reecriture.
+        # On n'ecoute qu'un seul salon : celui de Younes.
+        origine_upd = (upd.get("callback_query") or upd).get("message") or {}
+        salon = str((origine_upd.get("chat") or {}).get("id") or "")
+        if config.TELEGRAM_CHAT and salon and salon != str(config.TELEGRAM_CHAT):
+            print(f"[releve] message ignore : salon inconnu ({salon}).")
+            continue
+
         # ------------------------------------------------ les trois boutons
         cb = upd.get("callback_query")
         if cb:
