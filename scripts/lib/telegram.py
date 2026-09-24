@@ -107,8 +107,10 @@ def etat_polling() -> dict:
     releve vide qu'on prendrait pour un silence de Younes.
     """
     moi = (_call("getMe", {}) or {}).get("result", {}) or {}
-    print(f"[telegram] jeton utilise : @{moi.get('username', '?')} "
-          f"(id {moi.get('id', '?')})")
+    # L'identifiant numerique suffit a verifier qu'on parle du bon bot. Le nom
+    # d'utilisateur, lui, est une adresse : quiconque lit ces journaux pourrait
+    # ecrire au bot. On ne l'imprime pas.
+    print(f"[telegram] jeton utilise : bot id {moi.get('id', '?')}")
     info = _call("getWebhookInfo", {})
     donnees = (info or {}).get("result", {}) or {}
     url = donnees.get("url") or ""
