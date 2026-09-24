@@ -303,7 +303,7 @@
       "id": "idee-05cd0640",
       "source": "terrain",
       "text": "Test",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-24T06:46:26+00:00"
     }
   ],
@@ -555,6 +555,32 @@
       "published_at": null,
       "post_urn": null,
       "au_corpus": true
+    },
+    {
+      "id": "4fac9c30",
+      "pilier": "chiffre",
+      "gabarit": "A",
+      "theme": "clair",
+      "angle": "Test",
+      "source": "terrain",
+      "texte": "Combien de fois par semaine votre équipe vérifie-t-elle si un client a bien payé avant de lancer la commande ?\n\nLe travail réel : aucune seconde.\n\nLe reste, c'était une personne qui ouvrait deux logiciels différents, recopiait le numéro de facture, puis fermait les onglets. 15 fois par jour. Depuis des années.\n\nFaire parler les deux logiciels entre eux prend une demi-journée.\n\nPersonne ne s'en était chargé avant parce que tout le monde pensait que c'était normal.\n\nCe n'était pas normal.",
+      "hooks": [
+        "Combien de fois par semaine votre équipe vérifie-t-elle si un client a bien payé avant de lancer la commande ?",
+        "Combien de minutes par jour votre équipe passe-t-elle à comparer deux écrans différents ?"
+      ],
+      "alt": "Un graphique minimaliste montre le temps perdu entre deux logiciels.",
+      "visual": {
+        "EYEBROW": "TEMPS PASSÉ À VÉRIFIER LES PAIEMENTS<br>SUR DEUX LOGICIELS DIFFÉRENTS",
+        "NUMBER": "15",
+        "UNIT": "FOIS.",
+        "REVEAL": "Une demi-journée de branchement.<br><b>Zéro</b> vérification manuelle ensuite."
+      },
+      "problemes_releves": [],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-24T09:39:13+00:00",
+      "published_at": null,
+      "post_urn": null
     }
   ]
 }
