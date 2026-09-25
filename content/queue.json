@@ -96,7 +96,7 @@
       "source": "veille",
       "text": "900 milliards d'agents IA en 2035 : la vision choc de Huawei - blog-nouvelles-technologies.fr",
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWERrR3V3N1dNV2llRU1uSzhBREY0V2hQeHRuSUlWeHNGOEVaaUpuaGkxeWJBRmRBVjdVWmNIaHExNkNsakhyT3pwUVB2enA2N0VzM0pOUklsWkxQS2JUc09wUFpIY0Y0OTY4aDVSNjFMdmY0SXFjZEtTOXNzVXFGSlBtZVRIdWFY?oc=5",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -583,6 +583,64 @@
       "status": "pending",
       "auto": false,
       "created_at": "2026-09-24T09:39:13+00:00",
+      "published_at": null,
+      "post_urn": null
+    },
+    {
+      "id": "f10828ab",
+      "pilier": "pedagogie",
+      "gabarit": "B",
+      "theme": "clair",
+      "angle": "900 milliards d'agents IA en 2035 : la vision choc de Huawei - blog-nouvelles-technologies.fr",
+      "source": "veille",
+      "texte": "Combien de programmes intelligents votre entreprise compte-t-elle acheter d'ici 2035 ?\n\nZéro.\n\nVous avez surtout besoin que vos 3 logiciels arrêtent de se disputer le même fichier client.\n\nLe problème n'est pas d'attendre 10 ans une révolution invisible.\n\nLe problème est de passer déjà 2 heures par jour à recopier des lignes entre 2 tableaux.\n\nUne demi-journée suffit pour brancher vos outils entre eux.\n\nLa machine fait le reste.\n\nEt cela fonctionne dès aujourd'hui.",
+      "hooks": [
+        "Combien de milliards de programmes intelligents votre entreprise compte-t-elle acheter d'ici 2035 ?",
+        "Avez-vous vraiment besoin d'attendre 2035 pour automatiser vos tableaux ?"
+      ],
+      "alt": "Un graphique simple montrant le décalage entre les prévisions technologiques lointaines et les besoins immédiats de gestion en entreprise.",
+      "visual": {
+        "TITLE": "LE FUTUR ATTENDRA.<br>VOS TABLEAUX AUSSI.",
+        "BEFORE_TOTAL": "2 heures",
+        "before_steps": [
+          {
+            "nom": "Ouverture du tableur",
+            "temps": "10 min"
+          },
+          {
+            "nom": "Saisie des données",
+            "temps": "40 min"
+          },
+          {
+            "nom": "Vérification des erreurs",
+            "temps": "30 min"
+          },
+          {
+            "nom": "Copie vers le logiciel",
+            "temps": "30 min"
+          },
+          {
+            "nom": "Validation finale",
+            "temps": "10 min"
+          }
+        ],
+        "AFTER_TOTAL": "2 minutes",
+        "after_steps": [
+          {
+            "nom": "Transmission automatique",
+            "temps": "2 min"
+          }
+        ],
+        "NOTE": "UN LOGICIEL QUI TRAVAILLE SEUL\nVAUT MIEUX QU'UNE VISION À DIX ANS."
+      },
+      "problemes_releves": [
+        "Le texte respecte globalement les contraintes et ne contient pas de mots de la liste noire.",
+        "Le texte utilise bien des chiffres (2035, zéro, trois, dix, deux, deux, une, 2035) et pose une bonne question d'ouverture.",
+        "Le visuel doit être mis au format JSON strict attendu pour les étapes (tableaux d'objets avec 'nom' et 'temps'), et le titre du visuel doit se terminer par un point."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-25T09:56:52+00:00",
       "published_at": null,
       "post_urn": null
     }
