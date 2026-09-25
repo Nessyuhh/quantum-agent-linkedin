@@ -9,12 +9,17 @@ from lib import config, store, llm, telegram, render
 # Chaque pilier dispose de deux mises en page possibles. On prend celle qui n'a
 # pas servi le plus recemment : cinq gabarits et deux ambiances donnent assez de
 # combinaisons pour qu'un lecteur regulier ne voie pas deux fois la meme image.
+# Le gabarit B (le meme processus avant et apres, en deux voies) est retire de
+# la rotation le 25 septembre : Younes le juge bon pour une annonce unique, pas
+# pour une mise en page qui revient. Le fichier templates/gabarit-b.html reste
+# en place pour que les anciennes publications continuent de se regenerer, mais
+# plus aucun pilier ne le propose.
 GABARITS_PAR_PILIER = {
     "chiffre": ["A", "E"],
-    "pedagogie": ["B", "D"],
+    "pedagogie": ["D", "C"],
     "coulisses": ["D", "A"],
     "position": ["C", "D"],
-    "preuve": ["E", "B"],
+    "preuve": ["E", "A"],
 }
 VALIDATION_OBLIGATOIRE = {"position"}
 ROTATION = ["chiffre", "pedagogie", "coulisses", "position"]
@@ -182,7 +187,7 @@ def perimer_les_brouillons_oublies(data) -> None:
 
 def choisir_gabarit(data, pilier: str) -> str:
     """Parmi les mises en page du pilier, celle qui a le moins servi recemment."""
-    choix = GABARITS_PAR_PILIER.get(pilier) or ["B"]
+    choix = GABARITS_PAR_PILIER.get(pilier) or ["D"]
     recents = [i.get("gabarit") for i in data["items"][-4:]]
     for g in choix:
         if g not in recents:

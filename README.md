@@ -285,13 +285,15 @@ et rigoureusement a la charte.
 | Gabarit | Ce qu'il montre | Pour quel pilier |
 |---|---|---|
 | **A** | un chiffre geant, son unite, ce qu'il revele | chiffre, coulisses |
-| **B** | le meme processus avant et apres, en deux voies | pedagogie |
+| **B** | le meme processus avant et apres, en deux voies | retire de la rotation le 25/09 |
 | **C** | une affirmation plein cadre | position |
 | **D** | une methode en trois temps numerotes | pedagogie, position, coulisses |
 | **E** | deux mesures face a face, l'ecart saute aux yeux | chiffre, preuve |
 
 Chaque pilier dispose de deux gabarits possibles ; l'agent prend celui qui n'a pas
-servi dans les quatre dernieres publications. S'y ajoute une variante d'ambiance :
+servi dans les quatre dernieres publications. Le gabarit B n'est plus propose a
+aucun pilier : il convenait a une annonce unique, pas a une mise en page qui
+revient. Son fichier reste la pour que les anciennes publications se regenerent. S'y ajoute une variante d'ambiance :
 le meme gabarit existe en ivoire et en panneau sombre, et les deux alternent. B
 reste clair, parce qu'un schema se lit mieux sur fond pale ; C reste sombre, c'est
 sa signature.
