@@ -10,7 +10,7 @@ brouillon revient avec ses trois boutons.
 
 Tout autre message libre devient une note de terrain dans la banque d'angles.
 """
-import json, os, re, sys
+import base64, json, os, re, sys
 from lib import analyse, config, store, telegram, llm, render, corpus
 
 SEUIL_REMPLACEMENT = 250   # au-dela, on considere que c'est un texte complet
@@ -92,7 +92,18 @@ def main() -> int:
     # 2. Le mode releve, conserve comme filet. On lit sans pointeur, on traite,
     #    puis on accuse reception. Voir telegram.lire_updates.
     vu = int(data["state"].get("telegram_offset", 0))
+    # Make envoie la mise a jour encodee en base64. Ce detour evite le seul
+    # vrai piege du transport : une entree de workflow est une chaine, donc il
+    # faudrait echapper le JSON, et le texte d'un brouillon contient guillemets
+    # et retours a la ligne. En base64 il n'y a plus rien a echapper.
+    code = (os.environ.get("TELEGRAM_UPDATE64") or "").strip()
     brut = (os.environ.get("TELEGRAM_UPDATE") or "").strip()
+    if code:
+        try:
+            brut = base64.b64decode(code).decode("utf-8")
+        except Exception as exc:
+            print(f"[releve] mise a jour base64 illisible : {exc}")
+            return 0
     # "null" et "{}" sont ce que GitHub met quand le workflow part sans charge
     # utile : ce n'est pas une mise a jour, c'est une relevee ordinaire.
     if brut in ("null", "{}", '""'):

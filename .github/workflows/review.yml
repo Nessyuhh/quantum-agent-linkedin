@@ -19,7 +19,11 @@ on:
   workflow_dispatch:
     inputs:
       update:
-        description: "Mise a jour Telegram transmise par Make, en JSON. Vide = relevee classique."
+        description: "Mise a jour Telegram en JSON clair. Vide = relevee classique."
+        required: false
+        default: ""
+      update64:
+        description: "La meme, encodee en base64. C'est la voie normale depuis Make."
         required: false
         default: ""
 permissions:
@@ -57,6 +61,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_UPDATE: ${{ github.event_name == 'repository_dispatch' && toJSON(github.event.client_payload) || inputs.update }}
+          TELEGRAM_UPDATE64: ${{ inputs.update64 }}
         run: python review.py
       - name: Enregistrer la file
         run: |
