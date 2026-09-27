@@ -11,6 +11,11 @@ on:
     # tombe. La relevee est idempotente : elle repart du dernier message
     # Telegram traite, donc deux horloges ne se marchent pas dessus.
     - cron: "17 6,11,16 * * *"
+  # Le mode instantane : Make relaie le clic de Telegram ici, avec la mise a
+  # jour entiere en client_payload. C'est un objet JSON, pas une chaine, donc
+  # rien n'a besoin d'etre echappe en chemin.
+  repository_dispatch:
+    types: [telegram]
   workflow_dispatch:
     inputs:
       update:
@@ -51,7 +56,7 @@ jobs:
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_UPDATE: ${{ inputs.update }}
+          TELEGRAM_UPDATE: ${{ github.event_name == 'repository_dispatch' && toJSON(github.event.client_payload) || inputs.update }}
         run: python review.py
       - name: Enregistrer la file
         run: |

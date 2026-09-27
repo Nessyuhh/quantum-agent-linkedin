@@ -93,6 +93,10 @@ def main() -> int:
     #    puis on accuse reception. Voir telegram.lire_updates.
     vu = int(data["state"].get("telegram_offset", 0))
     brut = (os.environ.get("TELEGRAM_UPDATE") or "").strip()
+    # "null" et "{}" sont ce que GitHub met quand le workflow part sans charge
+    # utile : ce n'est pas une mise a jour, c'est une relevee ordinaire.
+    if brut in ("null", "{}", '""'):
+        brut = ""
     instantane = bool(brut)
 
     if instantane:
