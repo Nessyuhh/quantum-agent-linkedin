@@ -81,9 +81,14 @@ def confirmer(chat_id, message_id, etiquette: str, message) -> None:
 def main() -> int:
     data = store.load()
     telegram.etat_polling()
-    offset = int(data["state"].get("telegram_offset", 0))
-    res = telegram.get_updates(offset)
+    # Le pointeur enregistre ne sert plus qu'a ignorer ce qui a deja ete
+    # traite. Il n'est jamais envoye a Telegram : c'est ce qui rendait les
+    # clics effacables. Voir telegram.lire_updates.
+    vu = int(data["state"].get("telegram_offset", 0))
+    res = telegram.lire_updates()
     updates = res.get("result", []) if isinstance(res, dict) else []
+    updates = [u for u in updates if int(u.get("update_id", 0)) >= vu]
+    offset = vu
     traites = 0
 
     for upd in updates:
@@ -288,6 +293,8 @@ def main() -> int:
 
     data["state"]["telegram_offset"] = offset
     store.save(data)
+    # La confirmation vient en dernier, une fois la file ecrite sur le disque.
+    telegram.confirmer_updates(offset)
     print(f"{traites} evenement(s) traite(s).")
     return 0
 

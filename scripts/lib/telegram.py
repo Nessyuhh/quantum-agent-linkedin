@@ -123,13 +123,52 @@ def etat_polling() -> dict:
     return donnees
 
 
-def get_updates(offset: int):
-    res = _call("getUpdates", {"offset": offset, "timeout": 0,
-                               "allowed_updates": ["message", "callback_query"]},
+TYPES_ECOUTES = ["message", "callback_query"]
+
+
+def lire_updates():
+    """Lit ce que Telegram garde en reserve, SANS rien confirmer.
+
+    Le piege que cette fonction supprime : dans getUpdates, le parametre
+    offset n'est pas un filtre, c'est un accuse de reception. Telegram efface
+    definitivement toute mise a jour dont l'identifiant est inferieur a
+    l'offset envoye. Un pointeur trop haut - herite d'un autre bot, restaure
+    depuis une vieille version de la file, ou simplement corrompu - efface donc
+    les clics de Younes a la seconde ou on demande a les lire. Cote Telegram le
+    bouton cesse de tourner, cote agent le releve est vide : la validation
+    disparait sans laisser de trace nulle part. C'est exactement ce qui s'est
+    passe entre le 24 et le 27 septembre.
+
+    On lit donc sans offset. Telegram ne renvoie de toute facon que ce qui n'a
+    jamais ete confirme, et la confirmation n'arrive qu'apres traitement, par
+    confirmer_updates.
+    """
+    res = _call("getUpdates", {"timeout": 0,
+                               "allowed_updates": TYPES_ECOUTES},
                 strict=True)
-    n = len(res.get("result", []) or [])
-    print(f"[telegram] {n} mise(s) a jour recue(s) depuis l'offset {offset}.")
+    lot = res.get("result", []) or []
+    ids = [u.get("update_id") for u in lot if u.get("update_id") is not None]
+    if ids:
+        print(f"[telegram] {len(lot)} mise(s) a jour en reserve, "
+              f"identifiants {min(ids)} a {max(ids)}.")
+    else:
+        print("[telegram] aucune mise a jour en reserve.")
     return res
+
+
+def confirmer_updates(offset: int):
+    """Accuse reception de tout ce qui a ete traite. A n'appeler qu'apres coup.
+
+    Si le traitement s'est interrompu avant, rien n'est confirme et Telegram
+    representera les memes clics au prochain passage. Un doublon est sans
+    consequence - un brouillon deja valide le reste - alors qu'un clic perdu,
+    lui, ne revient jamais.
+    """
+    if offset <= 0:
+        return {}
+    print(f"[telegram] accuse de reception jusqu'a {offset - 1}.")
+    return _call("getUpdates", {"offset": offset, "timeout": 0,
+                                "allowed_updates": TYPES_ECOUTES})
 
 
 def answer_callback(cb_id: str, text: str):
