@@ -1,11 +1,48 @@
 """Publie la premiere publication validee de la file. Echoue bruyamment."""
 import sys, time, traceback
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from lib import config, store, telegram, render, linkedin
+
+
+PARIS = ZoneInfo("Europe/Paris")
+
+
+def deja_publie_aujourdhui(data: dict) -> int:
+    """Combien de publications sont deja parties aujourd'hui, heure de Paris."""
+    jour = datetime.now(PARIS).date()
+    n = 0
+    for i in data["items"]:
+        horodatage = i.get("published_at")
+        if not horodatage:
+            continue
+        try:
+            quand = datetime.fromisoformat(horodatage)
+        except ValueError:
+            continue
+        if quand.tzinfo is None:
+            quand = quand.replace(tzinfo=ZoneInfo("UTC"))
+        if quand.astimezone(PARIS).date() == jour:
+            n += 1
+    return n
 
 
 def main() -> int:
     data = store.load()
+
+    # Garde-fou d'horloge. Deux horloges reveillent ce script : Make, qui est a
+    # l'heure, et le planificateur de GitHub, qui arrive avec quatre a cinq
+    # heures de retard mais qui sert de filet si la premiere tombe. Le risque
+    # devient donc la double publication le meme jour. Cette garde l'interdit :
+    # la premiere horloge qui arrive publie, la seconde repart sans rien faire
+    # et sans bruit. Retirer cette garde, c'est reouvrir la porte a deux posts
+    # le meme matin.
+    if deja_publie_aujourdhui(data):
+        print("[garde-fou] une publication est deja partie aujourd'hui : "
+              "ce reveil ne fait rien.")
+        return 0
+
     pret = [i for i in data["items"] if i["status"] == "approved"]
     pret.sort(key=lambda i: i["created_at"])
 
