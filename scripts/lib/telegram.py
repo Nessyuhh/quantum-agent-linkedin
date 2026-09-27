@@ -118,8 +118,11 @@ def etat_polling() -> dict:
     print(f"[telegram] webhook : {url or 'aucun'} · "
           f"mises a jour en attente : {en_attente}")
     if url:
-        print("[telegram] webhook actif : je le retire pour pouvoir lire les clics.")
-        _call("deleteWebhook", {"drop_pending_updates": False})
+        # Un webhook actif est desormais le mode normal : c'est lui qui rend le
+        # bouton instantane. On ne le retire plus, ce serait scier la branche.
+        dernier = donnees.get("last_error_message")
+        if dernier:
+            print(f"[telegram] dernier echec de livraison : {dernier}")
     return donnees
 
 

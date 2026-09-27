@@ -10,7 +10,7 @@ brouillon revient avec ses trois boutons.
 
 Tout autre message libre devient une note de terrain dans la banque d'angles.
 """
-import json, re, sys
+import json, os, re, sys
 from lib import analyse, config, store, telegram, llm, render, corpus
 
 SEUIL_REMPLACEMENT = 250   # au-dela, on considere que c'est un texte complet
@@ -81,13 +81,34 @@ def confirmer(chat_id, message_id, etiquette: str, message) -> None:
 def main() -> int:
     data = store.load()
     telegram.etat_polling()
-    # Le pointeur enregistre ne sert plus qu'a ignorer ce qui a deja ete
-    # traite. Il n'est jamais envoye a Telegram : c'est ce qui rendait les
-    # clics effacables. Voir telegram.lire_updates.
+    # Deux facons d'arriver ici.
+    #
+    # 1. Le mode instantane. Telegram pousse le clic vers Make, Make reveille ce
+    #    workflow en lui passant la mise a jour telle quelle dans
+    #    TELEGRAM_UPDATE. Aucun appel a getUpdates : avec un webhook actif,
+    #    Telegram le refuserait de toute facon. Le bouton repond en une seconde
+    #    au lieu d'attendre le prochain passage.
+    #
+    # 2. Le mode releve, conserve comme filet. On lit sans pointeur, on traite,
+    #    puis on accuse reception. Voir telegram.lire_updates.
     vu = int(data["state"].get("telegram_offset", 0))
-    res = telegram.lire_updates()
-    updates = res.get("result", []) if isinstance(res, dict) else []
-    updates = [u for u in updates if int(u.get("update_id", 0)) >= vu]
+    brut = (os.environ.get("TELEGRAM_UPDATE") or "").strip()
+    instantane = bool(brut)
+
+    if instantane:
+        try:
+            recu = json.loads(brut)
+        except json.JSONDecodeError as exc:
+            print(f"[releve] mise a jour illisible : {exc}")
+            return 0
+        updates = recu if isinstance(recu, list) else [recu]
+        print(f"[releve] mode instantane : {len(updates)} mise(s) a jour recue(s) "
+              "de Make.")
+    else:
+        res = telegram.lire_updates()
+        updates = res.get("result", []) if isinstance(res, dict) else []
+        updates = [u for u in updates if int(u.get("update_id", 0)) >= vu]
+
     offset = vu
     traites = 0
 
@@ -293,8 +314,11 @@ def main() -> int:
 
     data["state"]["telegram_offset"] = offset
     store.save(data)
-    # La confirmation vient en dernier, une fois la file ecrite sur le disque.
-    telegram.confirmer_updates(offset)
+    # En mode releve seulement : la confirmation vient en dernier, une fois la
+    # file ecrite sur le disque. En mode instantane il n'y a rien a confirmer,
+    # Telegram a deja remis la mise a jour en main propre.
+    if not instantane:
+        telegram.confirmer_updates(offset)
     print(f"{traites} evenement(s) traite(s).")
     return 0
 

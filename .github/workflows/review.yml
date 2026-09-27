@@ -12,6 +12,11 @@ on:
     # Telegram traite, donc deux horloges ne se marchent pas dessus.
     - cron: "17 6,11,16 * * *"
   workflow_dispatch:
+    inputs:
+      update:
+        description: "Mise a jour Telegram transmise par Make, en JSON. Vide = relevee classique."
+        required: false
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -46,6 +51,7 @@ jobs:
           ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_UPDATE: ${{ inputs.update }}
         run: python review.py
       - name: Enregistrer la file
         run: |

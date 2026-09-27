@@ -1,0 +1,35 @@
+name: Brancher le bot Telegram
+# Branche le bot sur un webhook, ou le debranche pour revenir a la relevee
+# periodique. A lancer une fois, a la main, avec l'adresse du webhook Make.
+# Le jeton du bot ne sort jamais d'ici : il vient du secret du depot.
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Adresse du webhook Make. Laisser vide pour debrancher."
+        required: false
+        default: ""
+jobs:
+  brancher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Brancher ou debrancher
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          URL: ${{ inputs.url }}
+        run: |
+          set -euo pipefail
+          api="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN"
+          if [ -z "$URL" ]; then
+            echo "Debranchement : retour a la relevee periodique."
+            curl -sS -X POST "$api/deleteWebhook" -d drop_pending_updates=false > /dev/null
+          else
+            echo "Branchement du webhook."
+            curl -sS -X POST "$api/setWebhook" \
+              --data-urlencode "url=$URL" \
+              --data-urlencode 'allowed_updates=["message","callback_query"]' \
+              -d max_connections=4 > /dev/null
+          fi
+          # On n'imprime jamais l'adresse : elle vaut mot de passe, quiconque la
+          # lit peut faire parler le bot.
+          curl -sS "$api/getWebhookInfo" | python3 -c "import json,sys; d=json.load(sys.stdin)['result']; print('webhook actif :', bool(d.get('url')), '| en attente :', d.get('pending_update_count'), '| dernier echec :', d.get('last_error_message') or 'aucun')"
