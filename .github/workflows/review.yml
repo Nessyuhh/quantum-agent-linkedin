@@ -1,11 +1,16 @@
 name: Releve des validations Telegram
 on:
   schedule:
-    # Toutes les 30 minutes de 8h a 21h30 (heure de Paris en ete).
-    # Hypothese a verifier : demander 45 executions par jour sur un depot prive
-    # gratuit semble faire ignorer les horaires de TOUT le depot par GitHub. On
-    # allege pour voir si les taches quotidiennes repartent.
-    - cron: "*/30 6-19 * * *"
+    # Make tient desormais cette horloge : toutes les 30 minutes de 8h00 a
+    # 19h30, heure de Paris, changement d'heure compris. Le planificateur de
+    # GitHub, lui, ne tenait pas le rythme demande : le 26 septembre, un
+    # "*/30 6-19" a produit quatre relevees dans la journee, a 12h52, 16h52,
+    # 20h21 et 23h22. Une validation envoyee depuis Telegram pouvait donc
+    # dormir trois ou quatre heures avant d'etre prise en compte.
+    # Ce cron ne reste que comme filet, trois fois par jour, au cas ou Make
+    # tombe. La relevee est idempotente : elle repart du dernier message
+    # Telegram traite, donc deux horloges ne se marchent pas dessus.
+    - cron: "17 6,11,16 * * *"
   workflow_dispatch:
 permissions:
   contents: write
