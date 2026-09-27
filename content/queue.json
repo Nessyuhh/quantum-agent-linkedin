@@ -580,11 +580,12 @@
         "REVEAL": "Une demi-journée de branchement.<br><b>Zéro</b> vérification manuelle ensuite."
       },
       "problemes_releves": [],
-      "status": "expired",
+      "status": "approved",
       "auto": false,
       "created_at": "2026-09-24T09:39:13+00:00",
       "published_at": null,
-      "post_urn": null
+      "post_urn": null,
+      "au_corpus": true
     },
     {
       "id": "f10828ab",
