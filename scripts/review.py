@@ -105,7 +105,18 @@ def main() -> int:
         print(f"[releve] mode instantane : {len(updates)} mise(s) a jour recue(s) "
               "de Make.")
     else:
-        res = telegram.lire_updates()
+        try:
+            res = telegram.lire_updates()
+        except RuntimeError as exc:
+            if "409" in str(exc):
+                # Telegram refuse getUpdates tant qu'un webhook est branche.
+                # C'est le cas nominal depuis le mode instantane : le filet
+                # periodique n'a simplement rien a faire, ce n'est pas une
+                # panne et le workflow ne doit pas virer au rouge.
+                print("[releve] webhook branche : les clics arrivent en direct, "
+                      "rien a relever ici.")
+                return 0
+            raise
         updates = res.get("result", []) if isinstance(res, dict) else []
         updates = [u for u in updates if int(u.get("update_id", 0)) >= vu]
 
