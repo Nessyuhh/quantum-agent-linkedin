@@ -305,6 +305,30 @@
       "text": "Test",
       "used": true,
       "created_at": "2026-09-24T06:46:26+00:00"
+    },
+    {
+      "id": "veille-1a5bd8be",
+      "source": "veille",
+      "text": "L’utilisation de l’intelligence artificielle se généralise dans les TPE et PME - economie.gouv.fr",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNeEdwTjhyTGFmU0Q2ZDNMQlFjeEZ6QTdtSHk1Si1IeHZHcFd5dUhYLUh1X0FHUURDRkdEemtlSWlJOW9UX1V4UXVUTF9NYmtNX1ZOZHNEOEdEdDgzWXdMZV84bzUyanE1MWthRVZYMnRCUm5sTWpCVFBsU2ZmSGhYdTRhY2ZwdGRpN25TV1ozZkNHcDBlM0s4SkRMNS1UVlhVOGpSSm9Nb1hYRkh4Y3pxejg0eDhMRVE?oc=5",
+      "used": false,
+      "created_at": "2026-09-28T11:58:11+00:00"
+    },
+    {
+      "id": "veille-398f5343",
+      "source": "veille",
+      "text": "‘La peur de l’intelligence artificielle n’aide aucunement nos PME à progresser’ - Trends-Tendances",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNUkVfdFcxYklHbjFNZWpkU3pmb2JmLXAxQkpvVUU3RkdSaTdoN3AweTdvNnM2aTZiZU9zZHdrVjFKNE1TeXdFWTU0a25qeE9fTkFJUU1XWl8ta3pwN3NkLXVDZlZHTUpZYU5heVhOQzRNWmo0UGpSdzJzY2lGRm9wTVl5ei1NTFd0eDNVN3UzODVRTi1qZjZPbmpsbDI1ZU5idF9wbzFld1BZUG1yNDFtVVlGczM?oc=5",
+      "used": false,
+      "created_at": "2026-09-28T11:58:11+00:00"
+    },
+    {
+      "id": "veille-0971edc5",
+      "source": "veille",
+      "text": "Impulsion IA 2027 : accompagner l’intégration de l’intelligence artificielle dans le monde du travail - medef.com",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOb2ZRbHk0YUZnckRBWFR2bGZqYkd5OU9FeFc1VE9ud0NqYy1Rb2NxbW1Tejl0UG5melNydGtFZVVkMGhMOVJyQ052MFJSc1NJTzB6WlZCdnpmb0R3dlJpMFZ1MWwwamZNaWdyVUtlVVhZUWQ1bjg0d1lqdlZVcmpSWGZ6bWZEV2VwZTQyWkdNTXVBdXc0NUphekNyODdlTVF0azY2aTB5R3JBR1pvaDJ4WWlUXy1qdy1sdkxMcm94cGk3Nk1GNHFGcTYzMU4?oc=5",
+      "used": false,
+      "created_at": "2026-09-28T11:58:11+00:00"
     }
   ],
   "items": [
