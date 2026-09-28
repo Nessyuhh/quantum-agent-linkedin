@@ -112,7 +112,7 @@
       "source": "veille",
       "text": "Introducing Astra for Law — OpenAI for Law brings frontier intelligence for law, custom firm workflows, connected legal data sources, and legal-grade controls for confidential client work.",
       "url": "https://openai.com/index/astra-for-law",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -639,7 +639,7 @@
         "Le texte utilise bien des chiffres (2035, zéro, trois, dix, deux, deux, une, 2035) et pose une bonne question d'ouverture.",
         "Le visuel doit être mis au format JSON strict attendu pour les étapes (tableaux d'objets avec 'nom' et 'temps'), et le titre du visuel doit se terminer par un point."
       ],
-      "status": "pending",
+      "status": "expired",
       "auto": false,
       "created_at": "2026-09-25T09:56:52+00:00",
       "published_at": null,
@@ -668,6 +668,38 @@
       "published_at": null,
       "post_urn": null,
       "au_corpus": true
+    },
+    {
+      "id": "e4ccf727",
+      "pilier": "pedagogie",
+      "gabarit": "D",
+      "theme": "sombre",
+      "angle": "Introducing Astra for Law — OpenAI for Law brings frontier intelligence for law, custom firm workflows, connected legal data sources, and legal-grade controls for confidential client work.",
+      "source": "veille",
+      "texte": "Combien de dossiers s'endorment sur le bureau parce que la recherche des pièces justificatives prend une demi-journée par client ?\n\nLe travail réel : lire des contrats, vérifier des clauses, retrouver les précédents.\n\nLe reste, c'est du classement manuel entre 3 dossiers partagés et un serveur distant.\n\nPersonne n'a envie de faire ce travail. Personne n'est payé pour le faire.\n\nPourtant, il mobilise 2 collaborateurs chaque vendredi après-midi.\n\nBrancher les outils entre eux pour rassembler les pièces prend 2 heures.\n\nLa machine rassemble, l'humain vérifie et décide.\n\nLe temps rendu appartient enfin à l'expertise.",
+      "hooks": [
+        "Combien de dossiers s'endorment sur le bureau parce que la recherche des pièces justificatives prend une demi-journée par client ?",
+        "Combien d'heures votre équipe passe-t-elle à chercher les mêmes pièces dans trois dossiers différents ?"
+      ],
+      "alt": "Schéma simple en trois étapes montrant le passage d'une recherche manuelle de documents à un classement automatique.",
+      "visual": {
+        "TITLE": "Le dossier qui attend.",
+        "STEP1_T": "Rassembler les pièces justificatives",
+        "STEP1_D": "2 collaborateurs y consacrent chaque vendredi après-midi sans aucune valeur ajoutée.",
+        "STEP2_T": "Brancher les logiciels entre eux",
+        "STEP2_D": "Un enchaînement automatique récupère les documents sur le serveur distant.",
+        "STEP3_T": "Vérifier et décider",
+        "STEP3_D": "Votre équipe passe directement aux dossiers qui demandent un avis.",
+        "TOTAL": "2 HEURES DE MISE EN PLACE"
+      },
+      "problemes_releves": [
+        "Le texte initial respectait deja l'ensemble des contraintes, aucun cas invente, nombres en chiffres, ouverture par une question precise, pas de jargon technique."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-28T11:21:09+00:00",
+      "published_at": null,
+      "post_urn": null
     }
   ]
 }
