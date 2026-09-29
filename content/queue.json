@@ -120,7 +120,7 @@
       "source": "veille",
       "text": "Helping older adults use AI in everyday life — OpenAI and AARP are bringing free, hands-on ChatGPT workshops to 1,000 older adults across 10 U.S. cities to build practical AI skills safely.",
       "url": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
-      "used": false,
+      "used": true,
       "created_at": "2026-09-18T17:25:34+00:00"
     },
     {
@@ -725,6 +725,36 @@
       "published_at": null,
       "post_urn": null,
       "au_corpus": true
+    },
+    {
+      "id": "bc989755",
+      "pilier": "pedagogie",
+      "gabarit": "D",
+      "theme": "clair",
+      "angle": "Helping older adults use AI in everyday life — OpenAI and AARP are bringing free, hands-on ChatGPT workshops to 1,000 older adults across 10 U.S. cities to build practical AI skills safely.",
+      "source": "veille",
+      "texte": "Combien de temps passez-vous à expliquer à votre équipe comment utiliser un logiciel qu'elle a déjà en main ? Le problème n'est pas le niveau des équipes. Le problème est que chaque outil demande 3 manuels différents pour accomplir la même tâche de base. On passe des semaines à acheter des programmes sophistiqués. On oublie juste de vérifier si quelqu'un a le temps d'apprendre à s'en servir sans y passer ses soirées. Un bon système ne demande pas de formation de 3 jours. Il s'installe là où les gens travaillent déjà. Si une manipulation prend plus de 5 minutes à comprendre, ce n'est pas un progrès. C'est juste un travail supplémentaire. Simplifier ne veut pas dire tout changer. Ça veut dire retirer ce qui fatigue. Une demi-journée suffit en général pour remettre de l'ordre dans les habitudes. Le temps gagné se voit dès le premier mardi. Du désordre au Système.",
+      "hooks": [
+        "Combien de temps passez-vous à expliquer à votre équipe comment utiliser un logiciel qu'elle a déjà en main ?",
+        "Pourquoi vos équipes passent-elles plus de temps à chercher où cliquer qu'à travailler ?"
+      ],
+      "alt": "Schéma simple en trois étapes montrant le passage d'un logiciel compliqué à un usage quotidien fluide en entreprise.",
+      "visual": {
+        "TITLE": "Rendre les outils évidents.",
+        "STEP1_T": "Repérer les logiciels qui coincent",
+        "STEP1_D": "Observer où votre équipe perd du temps chaque jour sur ses écrans habituels",
+        "STEP2_T": "Retirer les étapes inutiles",
+        "STEP2_D": "Supprimer les manipulations qui demandent trop de clics pour un simple devis",
+        "STEP3_T": "Laisser faire les habitudes",
+        "STEP3_D": "Installer des automatismes discrets qui ne demandent aucune formation technique",
+        "TOTAL": "UNE DEMI-JOURNÉE SUR PLACE"
+      },
+      "problemes_releves": [],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-09-29T11:00:36+00:00",
+      "published_at": null,
+      "post_urn": null
     }
   ]
 }
