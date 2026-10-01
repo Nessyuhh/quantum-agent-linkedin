@@ -329,6 +329,33 @@
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOb2ZRbHk0YUZnckRBWFR2bGZqYkd5OU9FeFc1VE9ud0NqYy1Rb2NxbW1Tejl0UG5melNydGtFZVVkMGhMOVJyQ052MFJSc1NJTzB6WlZCdnpmb0R3dlJpMFZ1MWwwamZNaWdyVUtlVVhZUWQ1bjg0d1lqdlZVcmpSWGZ6bWZEV2VwZTQyWkdNTXVBdXc0NUphekNyODdlTVF0azY2aTB5R3JBR1pvaDJ4WWlUXy1qdy1sdkxMcm94cGk3Nk1GNHFGcTYzMU4?oc=5",
       "used": false,
       "created_at": "2026-09-28T11:58:11+00:00"
+    },
+    {
+      "id": "revue-8813098b",
+      "source": "revue",
+      "text": "Pourquoi votre assistante passe encore 4 heures chaque vendredi à relancer des factures impayées à la main.",
+      "pilier": "chiffre",
+      "pourquoi": "Le pilier chiffre a été retenu à 100 % (1/1) ; raccrocher l'automatisation à une tâche chronophage précise parle directement à la rentabilité du dirigeant.",
+      "used": false,
+      "created_at": "2026-10-01T14:18:30+00:00"
+    },
+    {
+      "id": "revue-c90bc1e0",
+      "source": "revue",
+      "text": "La boîte contact@ où trois personnes répondent en même temps sans savoir qui fait quoi.",
+      "pilier": "pedagogie",
+      "pourquoi": "La pédagogie est le pilier dominant des validations (4/5) ; ce sujet vulgarise la file d'attente sans nommer l'outil technique, en partant du désordre visible le lundi matin.",
+      "used": false,
+      "created_at": "2026-10-01T14:18:30+00:00"
+    },
+    {
+      "id": "revue-fe42096a",
+      "source": "revue",
+      "text": "Embaucher une secrétaire de plus pour ressaisir des bons de commande n'est pas une preuve de croissance, c'est une fuite d'organisation.",
+      "pilier": "position",
+      "pourquoi": "Le pilier position est validé sans réserve (1/1) ; attaquer le réflexe de recruter pour compenser un processus manuel rompt avec le discours technophile habituel.",
+      "used": false,
+      "created_at": "2026-10-01T14:18:30+00:00"
     }
   ],
   "items": [
