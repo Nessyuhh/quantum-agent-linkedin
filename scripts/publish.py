@@ -1,5 +1,5 @@
 """Publie la premiere publication validee de la file. Echoue bruyamment."""
-import sys, time, traceback
+import html, sys, time, traceback
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -29,7 +29,16 @@ def deja_publie_aujourdhui(data: dict) -> int:
 
 
 def lien_page() -> str:
-    """L'adresse du composeur de la page, deduite de son identifiant.
+    """L'adresse qui ouvre directement le composeur de la page.
+
+    Sans le parametre share, le bouton depose Younes sur la liste des posts et
+    il lui reste un clic pour ouvrir la fenetre d'ecriture. Avec, la fenetre
+    s'ouvre seule, deja au nom de Quantum Consulting.
+
+    LinkedIn ne permet pas de pre-remplir ce composeur : ni le texte ni
+    l'image ne passent par l'adresse. C'est la raison pour laquelle le texte
+    part dans Telegram dans un bloc qui se copie d'une touche, et le visuel en
+    piece jointe.
 
     L'identifiant d'organisation n'est pas un secret : il est dans l'adresse
     publique de la page. On le prend dans la variable quand elle est la, pour
@@ -39,7 +48,7 @@ def lien_page() -> str:
     if not ident.isdigit():
         ident = "104908740"
     return (f"https://www.linkedin.com/company/{ident}/admin/"
-            "page-posts/published/")
+            "page-posts/published/?share=true")
 
 
 def pont_manuel(data: dict, item: dict, png) -> int:
@@ -47,9 +56,9 @@ def pont_manuel(data: dict, item: dict, png) -> int:
 
     Trois envois : le visuel en piece jointe PNG (donc sans la recompression
     de sendPhoto, car ce fichier remonte ensuite sur LinkedIn), le texte seul
-    pour qu'il se copie d'un geste, et les deux boutons. Le brouillon reste
-    "approved" jusqu'au clic sur Publie : si Younes ne publie pas, rien n'est
-    perdu et le pont se repropose demain.
+    dans un bloc que Telegram copie d'une touche, et les deux boutons. Le
+    brouillon reste "approved" jusqu'au clic sur Publie : si Younes ne publie
+    pas, rien n'est perdu et le pont se repropose demain.
     """
     jour = datetime.now(PARIS).date().isoformat()
     if data["state"].get("pont_envoye_le") == jour:
@@ -69,8 +78,12 @@ def pont_manuel(data: dict, item: dict, png) -> int:
         "LinkedIn n'a pas encore accordé le jeton de la page. "
         "Tout est prêt : il reste le téléversement.\n"
         "<i>Le PNG ci-joint est l'original, c'est celui-là qu'il faut "
-        "mettre en ligne.</i>")
-    telegram.send(item["texte"],
+        "mettre en ligne. Touche le texte ci-dessous pour le copier.</i>")
+    # Le bloc <pre> n'est pas une coquetterie : dans Telegram, un bloc de code
+    # se copie entierement d'une seule touche. Sans lui, il faut selectionner
+    # le texte a la main sur un telephone, ce qui est exactement le genre de
+    # friction qui fait qu'une publication ne part pas.
+    telegram.send("<pre>" + html.escape(item["texte"]) + "</pre>",
                   buttons=telegram.pont_buttons(item["id"], lien_page()))
 
     data["state"]["pont_envoye_le"] = jour
