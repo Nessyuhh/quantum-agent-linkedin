@@ -176,25 +176,46 @@ def main() -> int:
                 telegram.answer_callback(cb["id"],
                                          "Valide, elle part au prochain creneau")
                 confirmer(chat_origine, msg_origine,
-                          "\u2705 Valid\u00e9e",
-                          f"\u2705 <b>Valid\u00e9e</b> \u00b7 <code>{item['id']}</code>\n"
-                          "Elle part au prochain cr\u00e9neau de publication.")
+                          "✅ Validée",
+                          f"✅ <b>Validée</b> · <code>{item['id']}</code>\n"
+                          "Elle part au prochain créneau de publication.")
 
             elif action == "no":
                 item["status"] = "rejected"
                 data["state"].pop("attente_edition", None)
                 telegram.answer_callback(cb["id"], "Refuse, elle ne partira pas")
                 confirmer(chat_origine, msg_origine,
-                          "\u274c Refus\u00e9e",
-                          f"\u274c <b>Refus\u00e9e</b> \u00b7 <code>{item['id']}</code>\n"
+                          "❌ Refusée",
+                          f"❌ <b>Refusée</b> · <code>{item['id']}</code>\n"
                           "Elle ne partira pas. Dis-moi ce qui n'allait pas si tu "
                           "veux que la prochaine soit meilleure.")
+
+            elif action == "pub":
+                # Le pont provisoire : tant que LinkedIn n'a pas accorde le
+                # jeton de la page, c'est Younes qui televerse, et ce bouton
+                # est ce qui fait avancer la file. Sans lui, le pont
+                # reproposerait le meme brouillon chaque matin.
+                item["status"] = "published"
+                item["published_at"] = store.now()
+                item["post_urn"] = "manuel"
+                item["publie_a_la_main"] = True
+                data["state"].pop("pont_envoye_le", None)
+                restants = len([i for i in data["items"]
+                                if i["status"] == "approved"])
+                telegram.answer_callback(cb["id"], "Note, la file avance")
+                confirmer(chat_origine, msg_origine, "✅ Publiée",
+                          f"✅ <b>Publiée</b> depuis la page · "
+                          f"<code>{item['id']}</code>\n"
+                          "Je la compte comme partie : elle ne reviendra plus.\n\n"
+                          f"<i>{restants} publication(s) encore en file. "
+                          "Dans quelques jours, /stats pour saisir ses "
+                          "chiffres.</i>")
 
             elif action == "mod":
                 data["state"]["attente_edition"] = item_id
                 item["status"] = "pending"
                 telegram.answer_callback(cb["id"], "Dis-moi quoi changer")
-                confirmer(chat_origine, msg_origine, "\u270f\ufe0f \u00c0 reprendre",
+                confirmer(chat_origine, msg_origine, "✏️ À reprendre",
                           None)
                 telegram.send(
                     "✏️ <b>Que faut-il changer ?</b>\n\n"
@@ -259,7 +280,7 @@ def main() -> int:
                 # 18 reactions, 3 commentaires » : on lit l'identifiant, puis
                 # les nombres dans l'ordre, et on ignore les mots.
                 tete = re.match(r"^\s*([0-9a-f]{4,12})\b(.*)$", ligne)
-                nombres = (re.findall(r"\d+(?:[ \u00a0\u202f]\d{3})*", tete.group(2))
+                nombres = (re.findall(r"\d+(?:[   ]\d{3})*", tete.group(2))
                            if tete else [])
                 if not tete or len(nombres) < 2:
                     if ligne.strip():
