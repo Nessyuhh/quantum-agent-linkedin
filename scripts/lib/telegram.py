@@ -205,3 +205,61 @@ def draft_buttons(item_id: str):
     return [[{"text": VALIDE, "callback_data": f"ok:{item_id}"}],
             [{"text": MODIFIER, "callback_data": f"mod:{item_id}"},
              {"text": REFUSE, "callback_data": f"no:{item_id}"}]]
+
+
+PUBLIE = "✅ Publié"
+
+
+def send_document(chemin, caption: str = "", chat_id=None):
+    """Envoie le visuel en piece jointe, sans recompression.
+
+    sendPhoto passe l'image a la moulinette JPEG de Telegram : pratique pour
+    un apercu, desastreux pour un visuel qui doit ensuite remonter sur
+    LinkedIn. Le pont de publication manuelle a besoin du PNG d'origine, au
+    pixel pres, car c'est ce fichier-la que Younes televerse.
+    """
+    if not config.TELEGRAM_TOKEN:
+        print(f"[telegram desactive] document {chemin}")
+        return {}
+    chemin = Path(chemin)
+    frontiere = "----QC" + uuid.uuid4().hex
+    morceaux = []
+
+    def champ(nom, valeur):
+        morceaux.append(
+            f"--{frontiere}\r\nContent-Disposition: form-data; "
+            f'name="{nom}"\r\n\r\n{valeur}\r\n'.encode())
+
+    champ("chat_id", chat_id or config.TELEGRAM_CHAT)
+    if caption:
+        champ("caption", caption[:1000])
+        champ("parse_mode", "HTML")
+    morceaux.append(
+        f"--{frontiere}\r\nContent-Disposition: form-data; "
+        f'name="document"; filename="{chemin.name}"\r\n'
+        "Content-Type: image/png\r\n\r\n".encode())
+    morceaux.append(chemin.read_bytes())
+    morceaux.append(f"\r\n--{frontiere}--\r\n".encode())
+
+    url = f"https://api.telegram.org/bot{config.TELEGRAM_TOKEN}/sendDocument"
+    req = urllib.request.Request(url, data=b"".join(morceaux), method="POST")
+    req.add_header("content-type",
+                   f"multipart/form-data; boundary={frontiere}")
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        print(f"[telegram] document en echec {e.code} : "
+              f"{e.read().decode()[:300]}")
+        return {}
+
+
+def pont_buttons(item_id: str, lien: str):
+    """Les deux gestes du pont : ouvrir la page, puis confirmer.
+
+    Le lien est un bouton et non une adresse dans le texte : un clic, pas une
+    copie. Le second bouton est la seule chose que l'agent attend en retour,
+    car c'est lui qui fait avancer la file.
+    """
+    return [[{"text": "\U0001f4ca Ouvrir la page", "url": lien}],
+            [{"text": PUBLIE, "callback_data": f"pub:{item_id}"}]]
