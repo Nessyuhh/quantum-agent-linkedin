@@ -28,6 +28,57 @@ def deja_publie_aujourdhui(data: dict) -> int:
     return n
 
 
+def lien_page() -> str:
+    """L'adresse du composeur de la page, deduite de son identifiant.
+
+    L'identifiant d'organisation n'est pas un secret : il est dans l'adresse
+    publique de la page. On le prend dans la variable quand elle est la, pour
+    que ce lien reste juste si la page change un jour d'identifiant.
+    """
+    ident = (config.LINKEDIN_ORG_URN or "").rsplit(":", 1)[-1]
+    if not ident.isdigit():
+        ident = "104908740"
+    return (f"https://www.linkedin.com/company/{ident}/admin/"
+            "page-posts/published/")
+
+
+def pont_manuel(data: dict, item: dict, png) -> int:
+    """Le dernier metre, fait a la main, sans quitter la page.
+
+    Trois envois : le visuel en piece jointe PNG (donc sans la recompression
+    de sendPhoto, car ce fichier remonte ensuite sur LinkedIn), le texte seul
+    pour qu'il se copie d'un geste, et les deux boutons. Le brouillon reste
+    "approved" jusqu'au clic sur Publie : si Younes ne publie pas, rien n'est
+    perdu et le pont se repropose demain.
+    """
+    jour = datetime.now(PARIS).date().isoformat()
+    if data["state"].get("pont_envoye_le") == jour:
+        print("[pont] deja propose aujourd'hui : ce reveil ne fait rien.")
+        return 0
+
+    try:
+        render.build(item["gabarit"], item["visual"], png, item.get("theme"))
+    except Exception as exc:
+        telegram.alert(f"Rendu du visuel impossible ({item['id']}) : {exc}")
+        raise
+
+    telegram.send_document(
+        png,
+        "\U0001f9f1 <b>Publication du jour</b> · "
+        f"{item['pilier']} · <code>{item['id']}</code>\n"
+        "LinkedIn n'a pas encore accordé le jeton de la page. "
+        "Tout est prêt : il reste le téléversement.\n"
+        "<i>Le PNG ci-joint est l'original, c'est celui-là qu'il faut "
+        "mettre en ligne.</i>")
+    telegram.send(item["texte"],
+                  buttons=telegram.pont_buttons(item["id"], lien_page()))
+
+    data["state"]["pont_envoye_le"] = jour
+    store.save(data)
+    print(f"[pont] {item['id']} propose a la publication manuelle.")
+    return 0
+
+
 def main() -> int:
     data = store.load()
 
@@ -55,22 +106,17 @@ def main() -> int:
     png = config.OUT / f"{item['id']}.png"
     cible = config.cible()
 
-    # Garde-fou d'identite. Aucun repli sur le profil n'est tolere : si la
-    # page n'a pas encore son jeton, la publication attend son tour. Le
-    # brouillon reste "approved" et partira, depuis la page, au premier
-    # creneau ou le jeton sera la. On previent, et on s'arrete proprement
-    # (code 0) : ce n'est pas une panne, c'est une attente.
+    # ---------------------------------------------------- le pont provisoire
+    # Garde-fou d'identite : aucun repli sur le profil, jamais. Mais une file
+    # de brouillons valides qui attend un jeton que LinkedIn n'a pas encore
+    # accorde, c'est une machine qui tourne a vide, et une page qui ne publie
+    # pas pendant la revue. Tant que le jeton manque, l'agent fait donc tout
+    # le chemin sauf le dernier metre : il fabrique le visuel, prepare le
+    # texte, ouvre la page au bon endroit, et laisse Younes appuyer. La page
+    # reste l'auteur, la cadence est tenue. Le jour ou le jeton arrive, ce
+    # bloc ne s'execute plus : il n'y a rien a defaire.
     if cible == "page" and not config.LINKEDIN_ORG_TOKEN:
-        telegram.alert(
-            "\u23f8\ufe0f <b>Publication mise en attente</b>\n"
-            f"La publication <code>{item['id']}</code> est pr\u00eate, mais la page "
-            "Quantum Consulting n'a pas encore son jeton.\n\n"
-            "<b>Rien n'est parti.</b> Je ne publie plus depuis ton profil : "
-            "la page est la seule cible.\n"
-            "Le brouillon reste en file et partira d\u00e8s que LinkedIn aura "
-            "accord\u00e9 la Community Management API.")
-        print("[garde-fou] jeton de la page absent : publication reportee.")
-        return 0
+        return pont_manuel(data, item, png)
 
     try:
         render.build(item["gabarit"], item["visual"], png, item.get("theme"))
@@ -92,10 +138,10 @@ def main() -> int:
             print("[repetition] relais profil : auteur "
                   f"{linkedin.author_urn('profil')}")
         print(f"[repetition] pret a publier {item['id']}, visuel {png}")
-        telegram.send("\ud83e\uddea <b>R\u00e9p\u00e9tition g\u00e9n\u00e9rale</b>\n"
+        telegram.send("🧪 <b>Répétition générale</b>\n"
                       f"Publication sur : {cible}"
                       + (", puis relais depuis ton profil." if relais else ".")
-                      + "\nJetons accept\u00e9s, visuel fabriqu\u00e9.\n"
+                      + "\nJetons acceptés, visuel fabriqué.\n"
                       f"La publication <code>{item['id']}</code> partirait sans erreur.")
         return 0
 
@@ -106,7 +152,7 @@ def main() -> int:
         post_id = linkedin.create_post(item["texte"], image_urn,
                                        item.get("alt"), owner, cle)
     except Exception as exc:
-        telegram.alert(f"Publication LinkedIn en echec sur \u00ab {cible} \u00bb.\n"
+        telegram.alert(f"Publication LinkedIn en echec sur « {cible} ».\n"
                        f"<code>{str(exc)[:500]}</code>\n"
                        "Si c'est une 401, le jeton a expire : relance "
                        "scripts/auth_linkedin.py.")
@@ -133,9 +179,9 @@ def main() -> int:
             # Le relais est un bonus : son echec ne doit pas annuler une
             # publication deja en ligne.
             telegram.alert("Publication faite sur la page, mais le relais "
-                           f"depuis ton profil a \u00e9chou\u00e9 :\n"
+                           f"depuis ton profil a échoué :\n"
                            f"<code>{str(exc)[:400]}</code>\n"
-                           "Tu peux repartager le post \u00e0 la main.")
+                           "Tu peux repartager le post à la main.")
             traceback.print_exc()
 
     item["status"] = "published"
@@ -148,10 +194,10 @@ def main() -> int:
     lien = (f"https://www.linkedin.com/feed/update/{post_id}/"
             if str(post_id).startswith("urn:li:") else "")
     ou = "la page Quantum Consulting" if cible == "page" else "ton profil"
-    telegram.send(f"\u2705 <b>Publi\u00e9e</b> sur {ou} \u00b7 {item['pilier']} \u00b7 "
-                  f"<code>{item['id']}</code>\n{item['texte'][:300]}\u2026\n\n"
+    telegram.send(f"✅ <b>Publiée</b> sur {ou} · {item['pilier']} · "
+                  f"<code>{item['id']}</code>\n{item['texte'][:300]}…\n\n"
                   + (f"{lien}\n\n" if lien else "")
-                  + ("\u21aa\ufe0f Relay\u00e9e depuis ton profil.\n\n" if relais_urn else "")
+                  + ("↪️ Relayée depuis ton profil.\n\n" if relais_urn else "")
                   + f"<i>{restants} publication(s) encore en file. "
                     f"Dans quelques jours, /stats pour saisir ses chiffres.</i>")
     return 0
