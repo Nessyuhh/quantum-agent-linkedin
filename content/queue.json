@@ -1,6 +1,6 @@
 {
   "state": {
-    "telegram_offset": 843369537
+    "telegram_offset": 843369538
   },
   "ideas": [
     {
@@ -809,11 +809,12 @@
         "Le ciblage exclusif de l'assistante frôle la personnalisation stéréotypée : on s'adresse à l'équipe ou au dirigeant pour décrire le mécanisme.",
         "Le visuel a un EYEBROW trop générique qui ressemble à une étiquette de classement plutôt qu'à la mesure précise d'une tâche dans un contexte d'entreprise."
       ],
-      "status": "pending",
+      "status": "approved",
       "auto": false,
       "created_at": "2026-10-17T08:56:27+00:00",
       "published_at": null,
-      "post_urn": null
+      "post_urn": null,
+      "au_corpus": true
     }
   ]
 }
