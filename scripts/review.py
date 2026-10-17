@@ -91,7 +91,21 @@ def main() -> int:
     #
     # 2. Le mode releve, conserve comme filet. On lit sans pointeur, on traite,
     #    puis on accuse reception. Voir telegram.lire_updates.
-    vu = int(data["state"].get("telegram_offset", 0))
+    #
+    # Ce qui a casse du 15 au 17 octobre : les clics de Younes etaient lus,
+    # puis jetes par un filtre "update_id >= telegram_offset", et enfin
+    # effaces par l'accuse de reception. Le pointeur stocke valait 999000005,
+    # herite des charges utiles de test du 7 octobre, alors qu'un vrai
+    # identifiant Telegram tourne autour de 843 millions. Chaque validation
+    # etait donc ecartee en silence, puis supprimee cote Telegram. Cote
+    # Younes : le bouton tourne quelques secondes et il ne se passe rien.
+    #
+    # Le pointeur stocke ne sert donc plus a filtrer quoi que ce soit. Il
+    # n'etait de toute facon pas necessaire : lire_updates n'envoie aucun
+    # offset, et Telegram ne renvoie que ce qui n'a jamais ete confirme. On
+    # n'accuse desormais reception que de ce qui vient reellement d'etre
+    # traite, identifiant par identifiant. Reintroduire un filtre sur une
+    # valeur stockee, c'est reintroduire la disparition silencieuse.
     # Make envoie la mise a jour encodee en base64. Ce detour evite le seul
     # vrai piege du transport : une entree de workflow est une chaine, donc il
     # faudrait echapper le JSON, et le texte d'un brouillon contient guillemets
@@ -133,9 +147,9 @@ def main() -> int:
                 return 0
             raise
         updates = res.get("result", []) if isinstance(res, dict) else []
-        updates = [u for u in updates if int(u.get("update_id", 0)) >= vu]
 
-    offset = vu
+    updates = [u for u in updates if isinstance(u, dict)]
+    offset = 0
     traites = 0
 
     for upd in updates:
@@ -200,6 +214,8 @@ def main() -> int:
                 item["post_urn"] = "manuel"
                 item["publie_a_la_main"] = True
                 data["state"].pop("pont_envoye_le", None)
+                data["state"].pop("pont_dernier_id", None)
+                data["state"].pop("pont_relances", None)
                 restants = len([i for i in data["items"]
                                 if i["status"] == "approved"])
                 telegram.answer_callback(cb["id"], "Note, la file avance")
@@ -359,12 +375,15 @@ def main() -> int:
                       "les angles de veille a la prochaine redaction.")
         traites += 1
 
-    data["state"]["telegram_offset"] = offset
+    # Conserve a titre indicatif, et uniquement a partir de ce qui vient
+    # d'etre traite. Plus aucun code ne s'en sert pour decider quoi lire.
+    if offset:
+        data["state"]["telegram_offset"] = offset
     store.save(data)
     # En mode releve seulement : la confirmation vient en dernier, une fois la
     # file ecrite sur le disque. En mode instantane il n'y a rien a confirmer,
     # Telegram a deja remis la mise a jour en main propre.
-    if not instantane:
+    if not instantane and offset:
         telegram.confirmer_updates(offset)
     print(f"{traites} evenement(s) traite(s).")
     return 0
