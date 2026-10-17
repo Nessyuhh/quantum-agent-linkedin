@@ -59,11 +59,20 @@ def pont_manuel(data: dict, item: dict, png) -> int:
     dans un bloc que Telegram copie d'une touche, et les deux boutons. Le
     brouillon reste "approved" jusqu'au clic sur Publie : si Younes ne publie
     pas, rien n'est perdu et le pont se repropose demain.
+
+    La file n'avance que sur ce clic. Sans lui, le meme brouillon revient
+    chaque matin a l'identique, et rien dans le message ne le disait : on
+    pouvait croire l'agent en panne alors qu'il attendait simplement une
+    confirmation. Le compteur de relances ci-dessous le dit desormais tout
+    haut, des la premiere repetition.
     """
     jour = datetime.now(PARIS).date().isoformat()
     if data["state"].get("pont_envoye_le") == jour:
         print("[pont] deja propose aujourd'hui : ce reveil ne fait rien.")
         return 0
+
+    meme = data["state"].get("pont_dernier_id") == item["id"]
+    relances = int(data["state"].get("pont_relances", 0)) + 1 if meme else 0
 
     try:
         render.build(item["gabarit"], item["visual"], png, item.get("theme"))
@@ -71,14 +80,27 @@ def pont_manuel(data: dict, item: dict, png) -> int:
         telegram.alert(f"Rendu du visuel impossible ({item['id']}) : {exc}")
         raise
 
-    telegram.send_document(
-        png,
-        "\U0001f9f1 <b>Publication du jour</b> · "
-        f"{item['pilier']} · <code>{item['id']}</code>\n"
-        "LinkedIn n'a pas encore accordé le jeton de la page. "
-        "Tout est prêt : il reste le téléversement.\n"
-        "<i>Le PNG ci-joint est l'original, c'est celui-là qu'il faut "
-        "mettre en ligne. Touche le texte ci-dessous pour le copier.</i>")
+    if relances:
+        entete = (
+            "\U0001f501 <b>La même qu'hier</b> · "
+            f"<code>{item['id']}</code>\n"
+            f"Je te la renvoie pour la {relances + 1}ᵉ fois : je n'ai "
+            "reçu aucune confirmation.\n\n"
+            "<b>Si tu l'as déjà publiée</b>, appuie sur "
+            "✅ Publié ci-dessous. C'est ce bouton, et lui seul, qui "
+            "fait avancer la file. Sans lui je te renverrai la même "
+            "demain matin.")
+    else:
+        entete = (
+            "\U0001f9f1 <b>Publication du jour</b> · "
+            f"{item['pilier']} · <code>{item['id']}</code>\n"
+            "LinkedIn n'a pas encore accordé le jeton de la page. "
+            "Tout est prêt : il reste le téléversement.\n"
+            "<i>Le PNG ci-joint est l'original, c'est celui-là qu'il faut "
+            "mettre en ligne. Touche le texte ci-dessous pour le copier, puis "
+            "appuie sur ✅ Publié une fois le post en ligne.</i>")
+
+    telegram.send_document(png, entete)
     # Le bloc <pre> n'est pas une coquetterie : dans Telegram, un bloc de code
     # se copie entierement d'une seule touche. Sans lui, il faut selectionner
     # le texte a la main sur un telephone, ce qui est exactement le genre de
@@ -87,8 +109,11 @@ def pont_manuel(data: dict, item: dict, png) -> int:
                   buttons=telegram.pont_buttons(item["id"], lien_page()))
 
     data["state"]["pont_envoye_le"] = jour
+    data["state"]["pont_dernier_id"] = item["id"]
+    data["state"]["pont_relances"] = relances
     store.save(data)
-    print(f"[pont] {item['id']} propose a la publication manuelle.")
+    print(f"[pont] {item['id']} propose a la publication manuelle "
+          f"(relance {relances}).")
     return 0
 
 
