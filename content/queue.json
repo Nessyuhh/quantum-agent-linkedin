@@ -1,7 +1,6 @@
 {
   "state": {
-    "telegram_offset": 999000005,
-    "pont_envoye_le": "2026-10-17"
+    "telegram_offset": 843369535
   },
   "ideas": [
     {
@@ -632,12 +631,13 @@
         "REVEAL": "Une demi-journée de branchement.<br><b>Zéro</b> vérification manuelle ensuite."
       },
       "problemes_releves": [],
-      "status": "approved",
+      "status": "published",
       "auto": false,
       "created_at": "2026-09-24T09:39:13+00:00",
-      "published_at": null,
-      "post_urn": null,
-      "au_corpus": true
+      "published_at": "2026-10-17T07:25:46+00:00",
+      "post_urn": "manuel",
+      "au_corpus": true,
+      "publie_a_la_main": true
     },
     {
       "id": "f10828ab",
