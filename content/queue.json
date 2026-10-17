@@ -336,7 +336,7 @@
       "text": "Pourquoi votre assistante passe encore 4 heures chaque vendredi à relancer des factures impayées à la main.",
       "pilier": "chiffre",
       "pourquoi": "Le pilier chiffre a été retenu à 100 % (1/1) ; raccrocher l'automatisation à une tâche chronophage précise parle directement à la rentabilité du dirigeant.",
-      "used": false,
+      "used": true,
       "created_at": "2026-10-01T14:18:30+00:00"
     },
     {
@@ -784,6 +784,36 @@
       "published_at": null,
       "post_urn": null,
       "au_corpus": true
+    },
+    {
+      "id": "0f66774e",
+      "pilier": "chiffre",
+      "gabarit": "A",
+      "theme": "sombre",
+      "angle": "Pourquoi votre assistante passe encore 4 heures chaque vendredi à relancer des factures impayées à la main.",
+      "source": "revue",
+      "texte": "Combien d'heures par semaine votre équipe passe-t-elle à relancer des factures impayées à la main ?\n\nLe rituel est toujours le même.\n\nOuvrir le relevé bancaire d'un côté. Ouvrir le logiciel de facturation de l'autre. Vérifier qui a réglé, ligne par ligne. Noter les retards dans un tableur.\n\nEnsuite vient la rédaction. Copier l'adresse mail du client, coller le texte de relance habituel, joindre la facture en pièce jointe, cliquer sur envoyer. Recommencer 15 fois.\n\nSur ces 4 heures, le travail qui demande réellement un jugement prend à peine 5 minutes : décider si l'on appelle directement un client historique qui a quelques jours de retard.\n\nLes 3 heures et 55 minutes restantes consistent simplement à recopier des données d'un écran vers un autre.\n\nPourtant, faire vérifier les encaissements par la machine et envoyer un premier rappel poli dès le lendemain de l'échéance ne demande aucun grand projet. Il suffit de faire communiquer le compte bancaire et l'outil de facturation.\n\nVotre équipe a sans doute mieux à faire de ses vendredis.",
+      "hooks": [
+        "Combien d'heures votre équipe perd-elle chaque semaine à copier-coller des relances de factures ?",
+        "Avez-vous déjà calculé le temps passé par mois sur des relances d'impayés ?"
+      ],
+      "alt": "Infographie montrant 4 heures passées à relancer des factures pour seulement 5 minutes de décision humaine utile.",
+      "visual": {
+        "EYEBROW": "TRAITEMENT HEBDOMADAIRE DES RELANCES<br>DANS UNE ENTREPRISE DE SERVICES",
+        "NUMBER": "4",
+        "UNIT": "HEURES.",
+        "REVEAL": "dont <b>5 minutes</b> de<br>décision réelle."
+      },
+      "problemes_releves": [
+        "La question d'ouverture avec 'Pourquoi votre assistante' adopte une tournure accusatrice au lieu d'interroger directement le dirigeant sur le volume d'heures perdues dans son entreprise.",
+        "Le ciblage exclusif de l'assistante frôle la personnalisation stéréotypée : on s'adresse à l'équipe ou au dirigeant pour décrire le mécanisme.",
+        "Le visuel a un EYEBROW trop générique qui ressemble à une étiquette de classement plutôt qu'à la mesure précise d'une tâche dans un contexte d'entreprise."
+      ],
+      "status": "pending",
+      "auto": false,
+      "created_at": "2026-10-17T08:56:27+00:00",
+      "published_at": null,
+      "post_urn": null
     }
   ]
 }
